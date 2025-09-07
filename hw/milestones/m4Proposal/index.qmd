@@ -1,0 +1,131 @@
+---
+title: "Milestone 4 Proposal"
+subtitle: "evaluating major LLMs"
+author:
+  - name: Mick McQuaid
+    email: mcq@utexas.edu
+    affiliations: University of Texas at Austin
+date: last-modified
+date-format: "DD MMM YYYY"
+format: 
+  clean-revealjs:
+    self-contained: true
+    slide-number: false
+    logo: quarto.png
+    footer-logo-link: "https://quarto.org"
+    sc-sb-title: false
+    header-logo: iSchoolLogoLight.png
+    header-logo-link: "https://ischool.utexas.edu"
+    subtitle-as-header: false
+    controls: true
+    controls-layout: edges
+html-math-method:
+  method: mathml
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+filters:
+  - reveal-header
+  - autofade.lua
+slide-level: 2
+number-sections: false
+engine: knitr
+embed-resources: true
+monofont: JetBrainsMono Nerd Font
+mathfont: TeX Gyre Math
+menu:
+  side: 'right'
+css: "style.css"
+---
+
+# Introduction
+- My original plan for m4 was to evaluate the chatbots from m3
+- With the help of Sam Burns, I've come up with a better idea
+- Evaluate the major LLMs on prescribed tasks of interest to students and staff of UT Austin
+- This is an ambitious plan but with much bigger rewards than the original plan
+
+# Background
+
+## Backstory
+- Microsoft wants UT Austin to adopt Copilot as our official LLM
+- Not everyone is on board
+- I want to evaluate the major LLMs and see which, if any, are best for our needs
+- I want to do this in a way that is transparent and reproducible
+- I want to get news coverage of our results
+- The rest of this slideshow covers the questions I've thought of so far
+
+# How?
+
+## Team responsibilities
+- My idea is to have each team be responsible for one LLM
+- We'd have to agree on which team does which LLM
+- After each team has evaluated their LLM, we'd work together in class to develop a report comparing the results
+
+## The material
+- Sam Burns has come up with ideas for candidate tasks of interest to staff and students
+- For example, *What documents do I need to submit to apply for graduation?*
+- Sam Burns has also come up with ideas of of documents pertinent to the tasks
+- We may need to expand that repository
+
+## Resources
+- UT Austin subreddit's [FAQ](https://www.reddit.com/r/UTAustin/wiki/faq/)
+- Admissions [FAQ](https://admissions.utexas.edu/apply/frequently-asked-questions/)
+- Texas Global [FAQ](https://global.utexas.edu/english-language-center/pre-arrival/faqs/)
+- You can probably add more
+
+# Goals
+- We want to give each LLM a fair chance to shine
+- We need to make sure the tasks are relevant to our needs
+- We want a transparent, reproducible process
+- We want the results to be newsworthy
+
+# Challenges
+
+## Level playing field
+- It will be difficult to create a level playing field
+- For example, Copilot needs small documents and they have to be uploaded to Microsoft's OneDrive for Copilot to read them
+- For example, ChatGPT is not completely compatible with the RAG framework demoed today
+- Other LLMs may have other limitations, e.g., some can search the web others can not
+- We have paid access to some, free access to others (we may need to do all free)
+
+## Resources
+- All the information resources (FAQs, etc.) may need to be wrangled for intake by the LLMs
+- We may find the information resources to be a bottleneck we need to tackle as a large group or in teams
+
+## Timeline
+- We have a lot of work to do and not much time
+- We may need to revise or eliminate m3 to devote time to this project
+- You have to get into your groups and discuss how you want to move forward
+- Then we need to come together and reach consensus
+
+# Next Steps
+- We need to spend fifteen minutes in our groups to discuss how we want to move forward
+- As you come up with questions, tell me and I'll put them on the screen
+- Then we'll come together and each group will share ideas
+- We need to make certain decisions today and can put off other decisions until later
+- We need to get in touch with the iSchool's new publicity person
+
+# More backstory---Copilot limitations
+At a recent meeting of UT Austin tech people, the following issues were raised
+
+## More backstory---Copilot limitations (1 of 2)
+- Trust and Accuracy: J--- mentioned that she does not trust Copilot 365 for personalized assistance, as it may not provide accurate responses for specific queries like checking meeting schedules.
+- Inferior Responses: C--- highlighted that Copilot's responses are perceived as inferior compared to ChatGPT and Gemini, making it difficult to gain credibility among faculty.
+- Response Limitations: Faculty reported running out of responses on Copilot, unlike ChatGPT.
+
+## More backstory---Copilot limitations (2 of 2)
+- Integration Issues: S--- noted that Copilot's power lies in integration with other applications, which is currently lacking.
+- S--- also mentioned that Box meets all data security requirements, whereas OneDrive does not, posing a data protection issue.
+- Data Size Limitations: Participants discussed the limitations of Copilot in handling large files, particularly in the free version, which restricts file uploads to 1 MB.
+- Complexity of Use: J--- found agents harder to use compared to custom GPTs in ChatGPT, indicating a need for better user experience and ease of use.
+
+# 
+
+::: {style="text-align: right; font-size: 300px; font-weight: bold;"}
+END
+:::
+
+# Colophon
+
+This slideshow was produced using `quarto`
+
+Fonts are *Roboto Light* and *Roboto Bold*
+

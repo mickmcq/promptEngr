@@ -1,0 +1,208 @@
+---
+title: "More on Prompting Techniques"
+subtitle: "Prompt Engineering"
+author:
+  - name: Mick McQuaid
+    email: mcq@utexas.edu
+    affiliations: University of Texas at Austin
+date: last-modified
+date-format: "DD MMM YYYY"
+format: 
+  clean-revealjs:
+    self-contained: true
+    slide-number: false
+    logo: quarto.png
+    footer-logo-link: "https://quarto.org"
+    sc-sb-title: false
+    header-logo: iSchoolLogoLight.png
+    header-logo-link: "https://ischool.utexas.edu"
+    subtitle-as-header: false
+    controls: true
+    controls-layout: edges
+html-math-method:
+  method: mathml
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+filters:
+  - reveal-header
+  - autofade.lua
+slide-level: 2
+number-sections: false
+engine: knitr
+embed-resources: true
+bibliography: master.bib
+monofont: JetBrainsMono Nerd Font
+mathfont: TeX Gyre Math
+menu:
+  side: 'right'
+css: "style.css"
+---
+
+::: {style="position: fixed; font-size: 4em; color: gray;"}
+Week Six
+:::
+
+# Agenda
+- Presentations: Kylie, Aditya
+- News
+- Review whatialreadyknow (Ishwari)
+- eC review
+- m1 review
+- Haystack (again)
+- Techniques
+- Work time
+
+# Presentations
+
+# News
+
+## The Batch
+
+$\langle$ pause to look at this week's edition $\rangle$
+
+# WhatIAlreadyKnow (Ishwari)
+
+# eC review
+
+$\langle$ look at the doc $\rangle$
+
+# m1 review
+- It's a colossal blunder to fail to turn in either the qmd or html file
+- I'm going to suggest that almost everyone use Huggingface datasets instead of Kaggle
+  - For example, Huggingface has 24 Shakespeare datasets
+- Each group should probably focus on one task, such as recommendation (3), question answering (1), or summarization (2) (One group has several tasks)
+- Although you are using different platforms, you will be required to extensively document what you're doing in a qmd file and an html file for the three remaining milestones
+- If you're using Jupyter, leave enough time to translate your notebook to quarto
+
+# Haystack
+Break into *new* pairs as specified on Canvas.
+
+## Tutorial components
+The tutorial shows you how to create a generative question-answering pipeline using the retrieval-augmentation (RAG) approach with Haystack 2.0. The process involves four main components:
+
+- SentenceTransformersTextEmbedder for creating an embedding for the user query, 
+- InMemoryBM25Retriever for fetching relevant documents,
+- PromptBuilder for creating a template prompt, and
+- OpenAIChatGenerator for generating responses.
+
+## But first, data!
+- [quickStart](https://huggingface.co/docs/dataset-viewer/quick_start)
+- [tutorialData](https://huggingface.co/datasets/bilgeyucel/seven-wonders)
+- Try the Python fragments from the tutorial on the seven-wonders dataset
+- If that's successful, try it on your own dataset
+- The fragments are *Check dataset validity*, *List configuration and splits*, *Preview a dataset*, and *Get the size of the dataset*.
+
+## Embed documents
+- Once you have the data, you can embed it using the `SentenceTransformersTextEmbedder`. This will create an embedding for each document in the dataset.
+- You could use a different embedder. Let's look at the list of embedders at [https://docs.haystack.deepset.ai/docs/embedders](https://docs.haystack.deepset.ai/docs/embedders). What you do will depend on the data you choose for your project.
+- For now, let's use the default.
+- By the way, what is an embedding?
+- In its simplest form, an embedding is a vector of numbers that represents (in this case) a sentence. The vector is created by a neural network that has been trained to learn the meaning of the word or sentence.
+
+## Start building the RAG pipeline
+- What is RAG, again?
+- RAG is a retrieval-augmented generation approach. It uses a retriever to find relevant documents, and then uses a generator to generate a response.
+- The pipeline generates a response by combining the retrieved documents with the user query.
+- You will use a text embedder for the user's question that matches the document embedder you used to embed the documents.
+- You will use a retriever to find relevant documents.
+- You will define a prompt template that will be used to generate the response.
+- You will use a chat generator to generate the response.
+
+## Initialize the pipeline
+- The tutorial has initialization steps for the above components.
+- The steps are:
+  - Initialize the text embedder
+  - Initialize the retriever
+  - Initialize the prompt builder
+  - Initialize the chat generator
+
+## Build the pipeline
+- The tutorial has a build step for the above components.
+
+## Asking a question
+- The tutorial has a run step for the above components.
+- In this case, a single question is asked.
+- The question is: "What does the Rhodes Statue look like?"
+- Some examples are given that could be run in a loop.
+- Your simple interface to the pipeline is probably going to be a simple loop.
+- I'm not going to require any error-handling or user-friendly interface components. You can consider me the only user and I can be given instructions to follow, such as to press Ctrl-D to exit the loop.
+- The interface need not be a web-based interface but can be. You are welcome to ask a model to generate a web-based interface but a simple command-line interface is sufficient.
+
+## Other Haystack tutorials
+- Although you are not required to use Haystack, you might find it useful. There are many tutorials on the Haystack website, for example:
+- [Filtering Documents with Metadata](https://haystack.deepset.ai/tutorials/31_metadata_filtering)
+- [Preprocessing Different File Types](https://haystack.deepset.ai/tutorials/30_file_type_preprocessing_index_pipeline)
+- [Creating a Hybrid Retrieval Pipeline](https://haystack.deepset.ai/tutorials/33_hybrid_retrieval)
+
+These are Beginner tutorials. There are also Intermediate and Advanced tutorials linked from the same page as the one we just did.
+
+# More on Techniques
+Last time, we did few-shot and zero-shot prompting techniques. Now we'll move on to thought generation techniques and others. Again, we're referring to @Schulhoff2024.
+
+## Thought Generation
+- *prompting the model to articulate its ongoing reasoning*
+- Chain-of-Thought
+- Zero-Shot Chain-of-Thought
+- Step-Back Prompting
+- Analogical Prompting
+- Thread-of-Thought Prompting
+- Tabular Chain-of-Thought
+
+## Few-Shot CoT
+- *multiple examples, including chains-of-thought*
+- Contrastive CoT Prompting
+- Uncertainty-Routed CoT Prompting
+- Complexity-based Prompting
+- Active Prompting
+- Memory-of-Thought Prompting
+- Automatic Chain-of-Thought Prompting
+
+## Decomposition
+- *explicitly decomposing the problem into subproblems*
+- Least-to-Most Prompting
+- Plan-and-Solve Prompting
+- Tree-of-Thought Prompting
+- Recursion-of-Thought Prompting
+- Program-of-Thoughts
+- Faithful Chain-of-Thought
+- Skeleton-of-Thought
+- Metacognitive Prompting
+
+## Ensembling
+- *using multiple prompts to solve the same problem, then aggregating the results, for example, by majority vote*
+- Demonstration Ensembling
+- Mixture of Reasoning Experts
+- Max Mutual Information Method
+- Self-Consistency
+- Universal Self-Consistency
+- Meta-Reasoning over Multiple CoTs
+- DiVeRSe
+- Consistency-based Self-Adaptive Prompting
+- Universal Self-Adaptive Prompting
+- Prompt Paraphrasing
+
+## Self-Criticism
+- *prompting the model to critique its own output*
+- Self-Calibration
+- Self-Refine
+- Reversing Chain-of-Thought
+- Self-Verification
+- Chain-of-Verification
+- Cumulative Reasoning
+
+#
+
+::: {style="text-align: right; font-size: 300px; font-weight: bold;"}
+END
+:::
+
+# References
+
+::: {#refs}
+:::
+
+# Colophon
+
+This slideshow was produced using `quarto`
+
+Fonts are *Roboto Light*, *Roboto Bold*, and *JetBrains Mono Nerd Font*
+

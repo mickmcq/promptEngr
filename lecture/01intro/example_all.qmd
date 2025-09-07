@@ -1,0 +1,198 @@
+---
+title: "Introduction"
+subtitle: "Prompt Engineering"
+author:
+  - name: Mick McQuaid
+    email: mcq@utexas.edu
+    affiliations: University of Texas at Austin
+date: last-modified
+date-format: "DD MMM YYYY"
+format: 
+  clean-revealjs:
+    self-contained: true
+    slide-number: false
+    logo: quarto.png
+    footer-logo-link: "https://quarto.org"
+    sc-sb-title: false
+    header-logo: iSchoolLogoLight.png
+    header-logo-link: "example_all.html#/title-slide"
+    subtitle-as-header: false
+    controls: true
+    controls-layout: edges
+html-math-method:
+  method: mathjax
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+filters:
+  - reveal-header
+slide-level: 2
+number-sections: false
+engine: knitr
+embed-resources: true
+bibliography: master.bib
+monofont: JetBrainsMono Nerd Font
+---
+
+::: {style="position: fixed; font-size: 5em; color: gray;"}
+Welcome!
+:::
+
+# Let me set the stage
+::: {.incremental}
+- This is all new, this course, this topic
+- There are no models for how it should be run
+- We're pioneering new ground
+:::
+
+## That's good and bad
+::: {.incremental}
+- You can probably guess the good aspects of being a pioneer, but what about the bad?
+- We may have to change course often.
+- We may go down blind alleys.
+- We *will* face a lot of uncertainty.
+- If this kind of thing bothers you, you should drop the course and wait until we have done all the pioneering work and you can follow.
+- $\langle$ Pause to let the room clear $\rangle$
+:::
+
+## Constraint
+::: {.incremental}
+- There are no prereqs. You may not even know how to spell AI
+- $\langle$ Pause for laughter $\rangle$
+- $\langle$ If no laughter, tell mother-in-law joke $\rangle$
+- Since there are no prereqs, we have to start before the beginning.
+- I need to tell you a little bit of history, so you get the context.
+:::
+
+## Today's plan
+::: {.incremental}
+- We have to read @Dhar2024 for a bit of history.
+- We'll spend some time on that today, then we'll a simple exercise.
+- In fact, the general format of the class will usually be some lecture followed by some exercises.
+:::
+
+# But first, TANSTAAFL
+
+That stands for "There ain't no such thing as a free lunch"
+
+Many people think AI will provide a free lunch. I don't.
+
+##
+
+![](fiBestProjSpec.jpg)
+
+You will have to work (think) to make AI work (think) for you
+
+::: {.notes}
+This cartoon may become controversial soon. We are still in a situation where the computer does what we tell it to but the level at which we tell it what to do is becoming more and more abstract.
+:::
+
+$\langle$ Pause to let the room clear $\rangle$
+
+# Paradigm shifts in AI
+
+@Dhar2024 covers four periods in AI history and the paradigm shifts between them.
+
+![](fiFourPeriods.png)
+
+This isn't all of AI history but is a simplified picture that will help us understand the task we face in making AI work for us.
+
+## Expert Systems
+::: {.incremental}
+- Work in well-circumscribed domains where expertise is identifiable and definable
+- Perform well at specific tasks where expertise can be extracted from humans
+- Represent problems as relationships between situations and outcomes
+- Considered intelligent if performing like human experts
+- Example: *high pallor* $\Rightarrow$ *excess bilirubin*
+:::
+
+## Machine Learning
+::: {.incremental}
+- Learn models from curated examples
+- Driven by database technology, Internet, abundance of data
+- Grew in parallel with neural networks
+- Rely on loss functions measuring difference between predictions and empirical reality
+- Influenced by philosopher Karl Popper
+- Example: Predicting pneumonia from historical medical records of people with and without pneumonia
+:::
+
+## Deep Learning
+::: {.incremental}
+- Usually conducted via deep neural networks
+- Takes raw input (images, language, sound) instead of human description
+- Acts as a *universal function approximator*
+- Learns features implicitly associated with raw input
+- Example: Vision system sees lines, colors, curves and, through successive layers of neurons, combines them into doors, windows, street signs
+:::
+
+## General Intelligence
+::: {.incremental}
+- Pre-trained models integrate a large corpus of general and specialized models *not* optimized for a single task
+- Language is a critical carrier of knowledge, powering large language models (LLMs)
+- Pre-trained models learn through self-supervision on uncurated data, e.g., WWW
+:::
+
+## Paradigm Shifts
+::: {.incremental}
+- Draws on the work of philosopher Thomas Kuhn
+- Perceives history of science as punctuated by upheavals displacing dominant paradigms
+- Identifies bottlenecks that lead to paradigm shifts
+:::
+
+##
+
+![](fiParadigmShifts.png)
+
+# Current Paradigm in Science
+
+AI as general-purpose technology
+
+General-purpose technology, such as electricity or the Internet, is defined by economists as a new method for producing and inventing that is important enough to have a protracted aggregate economic impact across the economy
+
+## Characteristics of General-Purpose Technologies
+::: {.incremental}
+- pervasiveness
+- inherent potential for technical improvements
+- innovational complementarities
+:::
+
+## Challenging characteristics of the current paradigm
+::: {.incremental}
+- opacity to humans, i.e., AI can't explain itself well (yet)
+- explanation and transparency are important to humans
+- legal questions of ownership and control of uncurated data, weights, and outputs
+- nature of uncurated data as biased, rife with falsehood and noise
+- AI is not designed to be truthful and is noisy and inconsistent
+:::
+
+## State of the world is a factor
+::: {.incremental}
+- Alignment problem: are our subgoals aligned with our goals?
+- and are the goals and subgoals aligned with those of AI?
+- Example: Goal *Save the planet* might cause the AI to infer subgoal *eliminate humans*
+- Scalability simplifies the work of bad actors
+:::
+
+## Human nature
+::: {.incremental}
+- deepfake porn of hundreds of thousands of ordinary women was overlooked, but policy action was taken when a celebrity was the victim
+- policy action is generally slow compared to technological advances
+- policy action tends to favor the very rich and well-connected
+- this has implications for all the legal and policy questions of AI
+:::
+
+#
+
+::: {style="text-align: right; font-size: 300px; font-weight: bold;"}
+END
+:::
+
+# References
+
+::: {#refs}
+:::
+
+# Colophon
+
+This slideshow was produced using `quarto`
+
+Fonts are *Robot Light*, *Roboto Bold*, and *JetBrains Mono Nerd Font*
+

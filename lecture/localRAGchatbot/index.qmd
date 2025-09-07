@@ -1,0 +1,201 @@
+---
+title: "A local RAG chatbot"
+subtitle: "local platform for LLMs"
+author:
+  - name: Mick McQuaid
+    email: mcq@utexas.edu
+    affiliations: University of Texas at Austin
+date: last-modified
+date-format: "DD MMM YYYY"
+format: 
+  clean-revealjs:
+    self-contained: true
+    slide-number: false
+    logo: quarto.png
+    footer-logo-link: "https://quarto.org"
+    sc-sb-title: false
+    header-logo: iSchoolLogoLight.png
+    header-logo-link: "https://ischool.utexas.edu"
+    subtitle-as-header: false
+    controls: true
+    controls-layout: edges
+html-math-method:
+  method: mathml
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+filters:
+  - reveal-header
+  - autofade.lua
+slide-level: 2
+number-sections: false
+engine: knitr
+embed-resources: true
+bibliography: master.bib
+monofont: JetBrainsMono Nerd Font
+mathfont: TeX Gyre Math
+menu:
+  side: 'right'
+css: "style.css"
+---
+
+::: {style="position: fixed; font-size: 4em; color: gray;"}
+Google Developer Groups on Campus
+:::
+
+# Agenda
+- RStudio
+- Ollama
+- DeepSeek
+- Local RAG chatbot
+
+# Today's plan
+Today we'll create a local RAG chatbot, using Ollama, DeepSeek R1, LangChain, ChromaDB, and Gradio.
+
+We'll have to install a lot of stuff and we'll have to use the `localRAGchatbot.qmd` file after we do some installations.
+
+# RStudio
+RStudio is a popular integrated development environment (IDE) for R, a programming language widely used for statistical computing and data analysis. It provides a user-friendly interface for writing, debugging, and running R code, as well as a variety of tools for data visualization, package management, and project organization. (source: [RStudio](https://www.rstudio.com/))
+
+## Why are we using it? Three reasons
+1. It works with Python as well as R (and Julia too!)
+2. It's a great example of both reproducibility and literate programming
+3. I like it better than Jupyter Notebooks because the files can be opened in your favorite text editor
+
+## Install R
+- Google the letter R
+- That should show you [https://www.r-project.org/](https://www.r-project.org/)
+- Download R 4.5.0 for your operating system
+  - The download R link will lead to a page with a bunch of countries listed
+  - Scroll down to the USA and choose any mirror (I use [https://mirrors.nics.utk.edu/cran/](https://mirrors.nics.utk.edu/cran/))
+  - Note that, if you go to macOS, you'll have to choose between ARM and Intel
+- Install it
+- You must do this before installing RStudio
+
+## Install RStudio
+- Google RStudio
+- That should show you [https://posit.co/downloads/](https://posit.co/downloads/)
+- It should detect your operating system and offer to install RStudio Desktop
+- Unfortunately, at least on macOS, it doesn't completely self-install: you have to drag it to the Applications folder
+- If you don't, it will appear to work until you try to save your file
+
+## Check Python in RStudio
+- Open RStudio
+- Go to Tools > Global Options > Python
+- Make sure it points to your Python installation
+- If it doesn't, change it or nothing will work
+
+# Ollama
+Ollama is an open-source framework designed to facilitate the deployment of large language models on local environments. It aims to simplify the complexities involved in running and managing these models, providing a seamless experience for users across different operating systems. (source: nixos wiki)
+
+## Download and Install Ollama
+
+Visit Ollama’s [website](https://ollama.ai) for detailed installation instructions, or install directly via Homebrew on macOS:
+
+```bash
+brew install ollama
+```
+
+For Windows and Linux, follow the platform-specific steps provided on the Ollama website.
+
+::: {.notes}
+These and the following instructions come from the workos [blog](https://workos.com/blog/how-to-run-deepseek-r1-locally)
+:::
+
+# DeepSeek R1
+DeepSeek R1 is a large language model (LLM) developed by DeepSeek, a Chinese AI company. It is designed to provide advanced natural language processing capabilities, including text generation, question answering, and more. It was released on 10 January 2025. It is incredibly popular but also controversial due to its adherence to Chinese government censorship policies. We can run it locally, which is a big attraction, meaning that your data never leaves your machine.
+
+## Fetch DeepSeek R1
+
+Pull the DeepSeek R1 model onto your machine:
+
+```bash
+ollama pull deepseek-r1
+```
+
+By default, this downloads the 7B DeepSeek R1 model (which is 4.4GB). If you’re interested in a specific distilled variant (e.g., 1.5B, 7B, 14B), or the full 671B parameter model (671b, which is 404GB) just specify its tag, like:
+
+```bash
+ollama pull deepseek-r1:1.5b
+```
+
+## Run DeepSeek R1
+
+Do this in a separate terminal tab or a new terminal window:
+
+```bash
+ollama serve
+```
+
+You must keep this terminal window open. In other words, you must keep Ollama running while you're using DeepSeek R1.
+
+## Start using DeepSeek R1
+
+Once installed, you can interact with the model right from your terminal:
+
+```bash
+ollama run deepseek-r1
+```
+
+Or, to run the 1.5B distilled model:
+
+```bash
+ollama run deepseek-r1:1.5b
+```
+
+Or, to prompt the model:
+
+```bash
+ollama run deepseek-r1 "What is the latest news on Rust programming language trends?"
+```
+
+## Model location
+
+On my machine, the model manifest is located at
+
+```bash
+~/.ollama/models/manifests/registry.ollama.ai/library/deepseek-r1/latest
+```
+
+The model itself is located at
+
+```bash
+~/.ollama/models/blobs
+```
+
+divided across several files. The name `deepseek-r1` is important because that is the name used by Ollama to refer to the model. If you store other models, they will be stored in this structure and can be accessed by name.
+
+You can verify that you have the 7B model by saying
+
+```bash
+ls -lh ~/.ollama/models/blobs
+```
+
+One of the blob files should be about 4.4GB.
+
+::: {.notes}
+ The file names are long hash keys and only matter if you think your download was corrupted.
+:::
+
+# The chatbot
+We now turn our attention to the `localRAGchatbot.qmd` file. You must download that file from Canvas, along with `Xiao2025.pdf`. This latter file is a book, @Xiao2025.
+
+The first thing to do is to copy and paste the `pip install ...` commands into a terminal window. Then you can try to render the `localRAGchatbot.qmd` file in RStudio.
+
+If you can't render the file, there may be several reasons. The first thing to try is to download the `localRAGchatbot.py` file and try to run that in Python by saying `python localRAGchatbot.py` at a terminal prompt. It takes about seven minutes to run on my machine. If that doesn't work, the problem may be in your Python installation. If it does work, the problem may be in your RStudio installation.
+
+#
+
+::: {style="text-align: right; font-size: 300px; font-weight: bold;"}
+END
+:::
+
+# References
+
+::: {#refs}
+:::
+
+# Colophon
+
+This slideshow was produced using `quarto`
+
+Fonts are *Roboto Light*, *Roboto Bold*, and *JetBrains Mono Nerd Font*
+

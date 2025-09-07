@@ -1,0 +1,197 @@
+---
+title: Prompt Engineering
+subtitle: |
+  INF 385T<br>
+  UT-Austin iSchool Syllabus <br>
+  Fall 2025
+date: today
+format:
+  html:
+    embed-resources: true
+    toc: true
+    theme:
+      - theme.scss
+bibliography: syllabus.bib
+mainfont: "TeX Gyre Schola"
+monofont: JetBrainsMono Nerd Font
+mathfont: TeX Gyre Schola Math
+---
+
+# Description (from the catalog)
+This course prepares students to develop prompts for text and image generation through an iterative cycle, making the most of foundation models, including large language models and diffusion models. It includes an overview of the field, including historical development, ethical dilemmas, and the creation of chatbots.
+
+# Details
+
+Important note:
+The information presented in this syllabus is subject to expansion, contraction, change, or stasis during the semester. In case of conflict between versions, the copy on Canvas takes precedence.
+
+## Course Number
+30039
+
+## Prerequisites
+Introductory Python Programming or equivalent
+
+## Time
+Tuesday, 3:30PM--6:30PM
+
+## Place
+UTA Room 1.208
+
+## Dates
+August 25--December 8, 2025
+
+## Final Exam
+None
+
+## Instructor
+Mick McQuaid
+
+## Email
+`mcq@utexas.edu`
+
+## Office
+1616 Guadalupe St, Room 5.402
+
+## Office Hours
+By appointment in my office or on Zoom at [https://utexas.zoom.us/my/mickmcquaid](https://utexas.zoom.us/my/mickmcquaid)
+
+## Academic Assistant
+Dhruvi Gopani, `druvigopani@utexas.edu`
+
+# Materials
+You should obtain a paid subscription to one of the following three LLMs in lieu of purchasing a textbook: { ChatGPT, Claude, Gemini }. These are the three leading LLMs at the time of this writing. All cost somewhere in the range of 18--20 USD per month. You should also obtain free-tier subscriptions to the other two (besides the one you pay for). Other models will be discussed in class and may be used in addition but not as substitutes. *Note: At the time of this writing, students can get Gemini Pro free for a year. That is equivalent to your paid subscription requirement.*
+
+You should probably have a gmail address since we'll be editing some google docs together. It will be possible to edit them anonymously at first, but eventually you'll need to supply me with an address to which I can give permission.
+
+There is no required textbook for this course, but the following will be cited in class:
+@deSantana2024,
+@Dhar2024,
+@Gold2023,
+@Heidt2024,
+@Liu2023,
+@Mizrahi2024,
+@Pei2023,
+@Phoenix2024,
+@Sahoo2024,
+@Schulhoff2024,
+@Shankar2024,
+@Venkataraman2024,
+@vanSchaik2024,
+@Wan2024,
+@Wasi2023,
+@Xiao2025,
+@Zheng2024
+
+# Learning Outcomes
+- the student can refine prompts with an iterative approach to obtain desired results from a large language model or image generator
+- the student can evaluate the ethical issues in prompt generation and the use of generated materials
+- the student understands the categories of current foundation models
+- the student understands the limits of current models
+- the student can distinguish between appropriate and inappropriate tasks to be accomplished through prompt engineering
+- the student can create a chatbot to assist in an area of the student's choosing
+
+# Class Format
+The class will be a third lecture, a third discussion, and a third work time on a
+computer. You should definitely bring a laptop computer
+to class every day.
+
+# Schedule
+
+[Week 1 (26 Aug)]{.weekn}
+Introduction, @Dhar2024
+
+[Week 2 (02 Sep)]{.weekn}
+Principles and guidelines I, @Mizrahi2024, Chapter One; @Tibdewal2024  ---
+Personas, @Zheng2024 ---
+Responsible prompting, @deSantana2024 ---
+Exercise A due
+
+[Week 3 (09 Sep)]{.weekn}
+Principles and guidelines II: Evaluation, @vanSchaik2024; @Shankar2024
+
+[Week 4 (16 Sep)]{.weekn}
+Iterative prompt development ---
+Labeling data, @Peterson2024, @Pei2023, Chapter 3 ---
+Exercise B due
+
+[Week 5 (23 Sep)]{.weekn}
+Prompt techniques, @Sahoo2024, @Schulhoff2024, Section 2 ---
+Milestone 1 due
+
+[Week 6 (30 Sep)]{.weekn}
+More on prompt techniques, @Schulhoff2024 ---
+Haystack introduction ---
+Exercise C due
+
+[Week 7 (07 Oct)]{.weekn}
+Prompt techniques, part three, @Schulhoff2024
+
+[Week 8 (14 Oct)]{.weekn}
+Prompt engineering techniques, @Wan2024 ---
+System prompts @Zhang2024 ---
+SageMaker introduction ---
+Colab introduction ---
+Milestone 2 due
+
+[Week 9 (21 Oct)]{.weekn}
+Prompting frameworks, @Liu2023
+
+[Week 10 (28 Oct)]{.weekn}
+Building a chatbot I
+
+[Week 11 (04 Nov)]{.weekn}
+Building a chatbot II ---
+Milestone 3 due
+
+[Week 12 (11 Nov)]{.weekn}
+To be announced ---
+Exercise D due
+
+[Week 13 (18 Nov)]{.weekn}
+Model survey
+
+[Thanksgiving Break!]{.weekn}
+
+[Week 14 (02 Dec)]{.weekn}
+Looking to the Future ---
+Milestone 4 due
+
+# Grading
+I plan to grade assignments within two weeks of their due date except where circumstances interfere.
+The grading scale used along with the grade components follow.
+
+{{< include _gradescale.qmd >}}
+
+*Note that all work requires the submission of a .qmd file and a .html file. Omission of either will result in no credit for the work.*
+
+## Individual work: 4 exercises, five points each
+- Exercise A: short Python program
+- Exercise B: bibliography
+- Exercise C: simple benchmark
+- Exercise D: statistical analysis
+
+## Group work: 4 milestones, ten points each
+
+- Milestone 1: project focus
+- Milestone 2: obtaining and labeling dataset
+- Milestone 3: initial chatbot
+- Milestone 4: chatbot evaluation
+
+*Note: there will be a peer eval after each milestone.  It is necessary to complete the peer eval to receive a score greater than zero on the milestone. The peer eval form is available on Canvas and must be completed as a plain text file and deposited in the appropriate assignment box within one day after the milestone is due. Evidence from the peer evals that a group member is not contributing adequately to the project will result in a lowering of that group member's score for the milestone.*
+
+## Contributions to the class's whatiknow doc: ten at two points each
+In weeks 3--11, each student will contribute to a shared document. The document is on google docs and is available through Canvas. Each student will be responsible for one contribution per week. Each contribution will be a short paragraph or series of bullet points describing a resource or concept. Alternatively, a contribution may consist of editing the document to make it more useful to other students.
+
+## Weekly work
+- Weekly presentations (one per student) (10 points)
+- Attendance (10 points)
+
+## Attendance
+I will take attendance every day and your percentage of attendance will count for ten percent of your grade.
+
+If you have a legitimate need for absence, such as illness or job interview, notify the instructor by email as soon as possible and you may receive an excused absence. It will not be possible to obtain an excused absence if you wait more than 72 hours after class to report it. (Some students come to me at the end of the semester saying, "I know I was present on Martober 32nd ...", and by then it is way too late. You can see the attendance sheet and are responsible for knowing when you have been marked absent.)
+
+{{< include _utBoilerplate.qmd >}}
+
+# References
+

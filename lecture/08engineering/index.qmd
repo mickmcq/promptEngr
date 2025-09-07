@@ -1,0 +1,152 @@
+---
+title: "Prompt Engineering Approaches and System Prompts"
+subtitle: "Prompt Engineering"
+author:
+  - name: Mick McQuaid
+    email: mcq@utexas.edu
+    affiliations: University of Texas at Austin
+date: last-modified
+date-format: "DD MMM YYYY"
+format: 
+  clean-revealjs:
+    self-contained: true
+    slide-number: false
+    logo: quarto.png
+    footer-logo-link: "https://quarto.org"
+    sc-sb-title: false
+    header-logo: iSchoolLogoLight.png
+    header-logo-link: "https://ischool.utexas.edu"
+    subtitle-as-header: false
+    controls: true
+    controls-layout: edges
+html-math-method:
+  method: mathml
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+filters:
+  - reveal-header
+  - autofade.lua
+slide-level: 2
+number-sections: false
+engine: knitr
+embed-resources: true
+bibliography: master.bib
+monofont: JetBrainsMono Nerd Font
+mathfont: TeX Gyre Math
+menu:
+  side: 'right'
+css: "style.css"
+---
+
+::: {style="position: fixed; font-size: 4em; color: gray;"}
+Week Eight
+:::
+
+# Agenda
+- Presentations: Kylie, Zeel, Maitreyee
+- News
+- Review whatialreadyknow (Ishwari)
+- m2 questions
+- Prompt engineering techniques
+- System prompts
+- Sagemaker
+- Colab
+- Work time
+
+# Presentations
+
+# News
+
+## The Batch
+
+$\langle$ pause to look at this week's edition $\rangle$
+
+# WhatIAlreadyKnow (Ishwari)
+
+# Prompt Engineering Techniques and Goals
+
+## Prompt Engineering Techniques
+- Meta Prompting
+- AutoPrompt
+- Automatic Prompt Engineer
+- Gradientfree Instructional Prompt Search
+- Prompt Optimization with Textual Gradients
+- RLPrompt
+- Dialogue-comprised Policy-gradient-based Discreet Prompt Optimization
+
+## Tree of Prompt Engineering Techniques from @Sahoo2024
+![](fiPromptEngineering.png){fig-alt="Tree of Prompt Engineering Techniques with top level branches listed on the following two frames"}
+
+## Goals of Prompt Engineering, @Sahoo2024, 1 of 2
+- New tasks without extensive training
+- Reasoning and logic
+- Reduce hallucination
+- User interaction
+- Fine-tuning and optimization
+- Knowledge-based reasoning and generation
+- Improving consistency and coherence
+
+## Goals of Prompt Engineering, @Sahoo2024, 2 of 2
+- Managing emotions and tone
+- Code generation and execution
+- Optimization and Efficiency
+- Understanding User Intent
+- Metacognition and Self-Reflection
+
+# Automatic Prompt Optimization, @Wan2024
+- Prompt engineering can be automated through APO
+- Two approaches:
+  - Instruction Optimization
+  - Exemplar Optimization
+- They are synergistic, but
+  - EO is easier and more effective
+  - Should reuse model-generated input-output pairs
+
+# System Prompts, @Zhang2024
+
+## What system prompts are
+- System prompts are general instructions that are not task specific but are included in a prompt
+- Some authors call them meta-instructions
+- An example might be "Let's think step by step"
+- Recent studies show that the state-of-the-art prompt optimizer is ProTeGi
+- Accordingly, @Zhang2024 test a system prompt optimizer with it and find that the system prompt optimizer performs better, noting that system prompts are more generally applicable
+
+# @Zhang2024, continued
+- @Zhang2024 cite recent research showing that combining multiple benchmarks in a single evaluation improves efficiency and alignment with human preferences, so they evaluate on a lot of task types
+- @Zhang2024 uses a genetic algorithm to iterate over system prompts (tens of thousands at each step), relying on removing mistakes from output at each iteration
+
+## Example of successful system prompt
+*Write an answer that makes the reader feel happy. Write like you are explaining. First establish the set of facts you know, then answer the question based only on those facts.*
+
+## Ethical considerations
+(*We covered this previously, but a reminder doesn't hurt*)
+
+Admirably, @Zhang2024 includes a section on ethical considerations. These include:
+
+- energy consumption of the process
+- possibility of stereotyping people, e.g., "act like a professor"
+- crowdsourced annotations from WEIRD contexts
+- need for research on model performance in new cultural and social contexts
+
+# Sagemaker Studio Lab
+$\langle$ pause to look at the mistral tutorial $\rangle$
+
+# Google Colab
+$\langle$ pause to demo Colab $\rangle$
+
+#
+
+::: {style="text-align: right; font-size: 300px; font-weight: bold;"}
+END
+:::
+
+# References
+
+::: {#refs}
+:::
+
+# Colophon
+
+This slideshow was produced using `quarto`
+
+Fonts are *Roboto Light*, *Roboto Bold*, and *JetBrains Mono Nerd Font*
+

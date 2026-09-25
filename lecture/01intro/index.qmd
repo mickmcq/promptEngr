@@ -7,30 +7,32 @@ author:
     affiliations: University of Texas at Austin
 date: last-modified
 date-format: "DD MMM YYYY"
+execute:
+  echo: true
 format: 
   clean-revealjs:
-    self-contained: true
+    transition: fade
     slide-number: false
     logo: quarto.png
     footer-logo-link: "https://quarto.org"
     sc-sb-title: false
     header-logo: iSchoolLogoLight.png
-    header-logo-link: "example_all.html#/title-slide"
+    header-logo-link: "https://ischool.utexas.edu"
     subtitle-as-header: false
     controls: true
     controls-layout: edges
-html-math-method:
-  method: mathjax
-  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 filters:
   - reveal-header
+  - autofade.lua
 slide-level: 2
 number-sections: false
 engine: knitr
 embed-resources: true
 bibliography: master.bib
-monofont: JetBrainsMono Nerd Font
-mathfont: Kurier
+monofont: VictorMono Nerd Font
+mathfont: TeX Gyre Math
+menu:
+  side: 'right'
 css: "style.css"
 ---
 
@@ -39,51 +41,43 @@ Welcome!
 :::
 
 # Schedule for today
-- 1530--1540 brief intro
-- 1540--1600 reading `ai-2027.com` and `ai_report_2025.pdf`
-- 1600--1610 forming teams: positive, negative, and alternative
-- 1610--1645 debate: I'll call on you to represent the above three positions
-- 1645--1700 break
-  1700--1705 taking attendance
-- 1705--1745 slideshow intro to course (rest of this slideshow)
+- 1500--1510 brief intro
+- 1510--1530 reading `ai-2027.com` and `ai_report_2025.pdf`
+- 1530--1540 forming teams: positive, negative, and alternative
+- 1540--1615 debate: I'll call on you to represent the above three positions
+- 1615--1630 break
+- 1630--1635 taking attendance
+- 1635--1745 slideshow intro to course (rest of this slideshow)
 
 # Setting the stage
 
 ## Let me set the stage for our adventure
-::: {.incremental}
 - This is all new, this course, this topic
 - There are no models for how it should be run
 - We're pioneering new ground
 - Congratulations! You can call yourself a pioneer but you could also call yourself a guinea pig!
-:::
 
 ## Pioneering is good and bad
-::: {.incremental}
 - You can probably guess the good aspects of being a pioneer, but what about the bad?
 - We may have to change course often.
 - We may go down blind alleys.
 - We *will* face a lot of uncertainty.
 - If this kind of thing bothers you, you should drop the course and wait until we have done all the pioneering work and you can follow.
 - $\langle$ Pause to let the room clear $\rangle$
-:::
 
 ## Constraint
-::: {.incremental}
 - There are no prereqs (except a bit of Python). You may not even know how to spell AI
 - $\langle$ Pause for laughter $\rangle$
 - $\langle$ If no laughter, tell mother-in-law joke $\rangle$
 - Since there are no prereqs, we have to start before the beginning.
 - I need to tell you a little bit of history, so you get the context.
-:::
 
 ## Remainder of today
-::: {.incremental}
 - We'll review @Dhar2024 for a bit of history
 - We'll learn how you'll do homework and presentations
 - Finally, we'll introduce Exercise A.
 - In fact, the general format of the class will usually be some lecture followed by some exercises.
 - Next week, we'll discuss the general framework for the semester, but I want to give you something to think about first---one view of learning is that it is like hanging ornaments on an Xmas tree---you need the tree but you also need to appreciate the ornaments: which should come first?
-:::
 
 # Before we begin, TANSTAAFL
 
@@ -139,46 +133,36 @@ One of my two main pet peeves is when students make a "heading" by simply contin
 This isn't all of AI history but is a simplified picture that will help us understand the task we face in making AI work for us.
 
 ## Expert Systems
-::: {.incremental}
 - Work in well-circumscribed domains where expertise is identifiable and definable
 - Perform well at specific tasks where expertise can be extracted from humans
 - Represent problems as relationships between situations and outcomes
 - Considered intelligent if performing like human experts
 - Example: *high pallor* $\Rightarrow$ *excess bilirubin*
-:::
 
 ## Machine Learning
-::: {.incremental}
 - Learn models from curated examples
 - Driven by database technology, Internet, abundance of data
 - Grew in parallel with neural networks
 - Rely on loss functions measuring difference between predictions and empirical reality
 - Influenced by philosopher Karl Popper
 - Example: Predicting pneumonia from historical medical records of people with and without pneumonia
-:::
 
 ## Deep Learning
-::: {.incremental}
 - Usually conducted via deep neural networks
 - Takes raw input (images, language, sound) instead of human description
 - Acts as a *universal function approximator*
 - Learns features implicitly associated with raw input
 - Example: Vision system sees lines, colors, curves and, through successive layers of neurons, combines them into doors, windows, street signs
-:::
 
 ## General Intelligence
-::: {.incremental}
 - Pre-trained models integrate a large corpus of general and specialized models *not* optimized for a single task
 - Language is a critical carrier of knowledge, powering large language models (LLMs)
 - Pre-trained models learn through self-supervision on uncurated data, e.g., WWW
-:::
 
 ## Paradigm Shifts
-::: {.incremental}
 - Draws on the work of philosopher Thomas Kuhn
 - Perceives history of science as punctuated by upheavals displacing dominant paradigms
 - Identifies bottlenecks that lead to paradigm shifts
-:::
 
 ##
 
@@ -191,36 +175,28 @@ This isn't all of AI history but is a simplified picture that will help us under
 General-purpose technology, such as electricity or the Internet, is defined by economists as a new method for producing and inventing that is important enough to have a protracted aggregate economic impact across the economy
 
 ## Characteristics of General-Purpose Technologies
-::: {.incremental}
 - pervasiveness
 - inherent potential for technical improvements
 - innovational complementarities
-:::
 
 ## Challenging characteristics of the current paradigm
-::: {.incremental}
 - opacity to humans, i.e., AI can't explain itself well (yet)
 - explanation and transparency are important to humans
 - legal questions of ownership and control of uncurated data, weights, and outputs
 - nature of uncurated data as biased, rife with falsehood and noise
 - AI is not designed to be truthful and is noisy and inconsistent
-:::
 
 ## State of the world is a factor
-::: {.incremental}
 - Alignment problem: are our subgoals aligned with our goals?
 - and are the goals and subgoals aligned with those of AI?
 - Example: Goal *Save the planet* might cause the AI to infer subgoal *eliminate humans*
 - Scalability simplifies the work of bad actors
-:::
 
 ## Human nature
-::: {.incremental}
 - deepfake porn of hundreds of thousands of ordinary women was overlooked, but policy action was taken when a celebrity was the victim
 - policy action is generally slow compared to technological advances
 - policy action tends to favor the very rich and well-connected
 - this has implications for all the legal and policy questions of AI
-:::
 
 # Conversation
 
@@ -246,13 +222,11 @@ Which view do you subscribe to? Perhaps both at different times and in different
 :::
 
 ## The Art of Conversation
-::: {.incremental}
 - If you search for books about the art of conversation, what will you find?
 - The first book I found talked about conversation for pure pleasure
 - The second book I found talked about body language during conversation
 - Prompt engineering is essentially a conversation, but so different from what I think of as conversation
 - We need to think of it as conversation, but study it separately from conversation that gives us enjoyment or happens face-to-face with another person
-:::
 
 ::: {.notes}
 I should add that body language is not a far-fetched concept in the conversation with generative AI. Certainly the camera in your laptop can detect your interest in the conversation, your mood, and more. And generative AI tools can certainly produce avatars that react to your body language.
@@ -286,12 +260,10 @@ in Computing Systems,May 11–16, 2024, Honolulu, Hawai’i. ACM, New York, NY, 
 ![](fiBibOutput.png)
 
 ## Adjustments
-::: {.incremental}
 - I have a key format I always use and `tibdewal12018unlocking` doesn't fit (but the AI could not have known that)
 - The booktitle should begin CHI '24 (but the AI could probably not have known that)
 - The address and location should be swapped (not sure if the AI should have been able to figure that out)
 - Overall, I gave it an A and promptly used it for a long list of unformatted bibliographic items, which it handled similarly
-:::
 
 ## Example---challenge
 Animate this
@@ -364,18 +336,15 @@ You'll need to turn in a .qmd file and a .html file by 11:59PM the night before 
 How do you do that? Just open R Studio and select File > New File > Quarto Presentation. The system will create a small presentation template for you. Now we'll add to it.
 
 ## Why Quarto?
-::: {.incremental}
 - Quarto is a tool that helps you do *reproducible research*
 - Quarto helps you document the steps you took
 - Quarto encapsulates the code (in this case, Python code) and your commentary about what you did, including any pictures, equations, videos, or anything else that a word processor can include
 - Quarto provides a text that is readable by any text editor of your preference
 - Quarto documents and slideshows can be rendered to html or any of about a dozen other formats
-:::
 
 ## How to use Quarto
-::: {.incremental}
 - Note that you don't have to follow these instructions if you already know how to use Quarto
-- Be sure you have Python on your computer (how you do that is up to you; I use `pyenv`)
+- Be sure you have Python on your computer (how you do that is up to you; I use `pyenv` but recommend `uv`)
 - Download R; then download R Studio (the order is important)
 - Download the file `eA.qmd` from Canvas
 - Open R studio; choose Open File from the menu; open `eA.qmd`
@@ -383,7 +352,6 @@ How do you do that? Just open R Studio and select File > New File > Quarto Prese
 - Fill in your name
 - Do the exercise in this file, documenting what you do as you go
 - Intersperse code and commentary, including prompts you use
-:::
 
 ## Problem?
 ![](fiPythonEnvironmentXKCD.png)
@@ -399,29 +367,21 @@ If you are on Windows, good luck. I don't know how it works. I switched to mac s
 # Exercise A
 
 ## Write a short Python program
-::: {.incremental}
 - task: generate a random order for students to make presentations in this class
 - constraint: everyone must present once
 - constraint: no more than three may present on a given day
 - constraint: no fewer than two may present on a given day
 - constraint: there are twelve days on which students may present
 - if no program works by the end of today's class, we will use the program I wrote and will show as a demo
-:::
 
 ## Approaching this exercise
-::: {.incremental}
 - You can make this very simple by doing some manual labor
 - You need to break the problem down into parts
 - You need to iterate
 - You need to document what you do
 - As with all exercises, I ask you to turn in a Quarto qmd file and an html file (both are required for credit)
-:::
 
----
-
-::: {style="text-align: right; font-size: 300px; font-weight: bold;"}
-END
-:::
+# [END]{.r-fit-text}
 
 # References
 
@@ -432,5 +392,5 @@ END
 
 This slideshow was produced using `quarto`
 
-Fonts are *Roboto Light*, *Roboto Bold*, and *JetBrains Mono Nerd Font*
+Fonts are *Roboto*, *Roboto Light*, and *Victor Mono Nerd Font*
 

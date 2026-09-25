@@ -3,7 +3,7 @@ title: Prompt Engineering
 subtitle: |
   INF 385T<br>
   UT-Austin iSchool Syllabus <br>
-  Fall 2025
+  Spring 2026
 date: today
 format:
   html:
@@ -26,19 +26,19 @@ Important note:
 The information presented in this syllabus is subject to expansion, contraction, change, or stasis during the semester. In case of conflict between versions, the copy on Canvas takes precedence.
 
 ## Course Number
-30039
+28980
 
 ## Prerequisites
 Introductory Python Programming or equivalent
 
 ## Time
-Tuesday, 3:30PM--6:30PM
+Wednesday, 3:00PM--6:00PM
 
 ## Place
 UTA Room 1.208
 
 ## Dates
-August 25--December 8, 2025
+12 JAN 26--27 APR 2026
 
 ## Final Exam
 None
@@ -56,12 +56,12 @@ Mick McQuaid
 By appointment in my office or on Zoom at [https://utexas.zoom.us/my/mickmcquaid](https://utexas.zoom.us/my/mickmcquaid)
 
 ## Academic Assistant
-Dhruvi Gopani, `druvigopani@utexas.edu`
+Dhruvi Gopani, `dhruvigopani@utexas.edu`
 
 # Materials
-You should obtain a paid subscription to one of the following three LLMs in lieu of purchasing a textbook: { ChatGPT, Claude, Gemini }. These are the three leading LLMs at the time of this writing. All cost somewhere in the range of 18--20 USD per month. You should also obtain free-tier subscriptions to the other two (besides the one you pay for). Other models will be discussed in class and may be used in addition but not as substitutes. *Note: At the time of this writing, students can get Gemini Pro free for a year. That is equivalent to your paid subscription requirement.*
+You should obtain a paid subscription to one of the following three LLMs in lieu of purchasing a textbook: { ChatGPT, Claude, Gemini }. These are the three leading LLMs at the time of this writing. All cost somewhere in the range of 18--20 USD per month. You should also obtain free-tier subscriptions to the other two (besides the one you pay for). Other models will be discussed in class and may be used in addition but not as substitutes. *Note: At the time of this writing, students can get Gemini Pro free for a year. That is equivalent to your paid subscription requirement. UT Austin employees can get Claude free but I don't know if that extends to students.* 
 
-You should probably have a gmail address since we'll be editing some google docs together. It will be possible to edit them anonymously at first, but eventually you'll need to supply me with an address to which I can give permission.
+You should probably have a gmail address since we'll be editing some google docs together. It will be possible to edit them anonymously at first, but eventually you'll need to supply me with an address to which I can give permission for grading purposes.
 
 There is no required textbook for this course, but the following will be cited in class:
 @deSantana2024,
@@ -97,62 +97,63 @@ to class every day.
 
 # Schedule
 
-[Week 1 (26 Aug)]{.weekn}
+[Week 1 (14 Jan)]{.weekn}
 Introduction, @Dhar2024
 
-[Week 2 (02 Sep)]{.weekn}
+[Week 2 (21 Jan)]{.weekn}
 Principles and guidelines I, @Mizrahi2024, Chapter One; @Tibdewal2024  ---
 Personas, @Zheng2024 ---
 Responsible prompting, @deSantana2024 ---
 Exercise A due
 
-[Week 3 (09 Sep)]{.weekn}
+[Week 3 (28 Jan)]{.weekn}
 Principles and guidelines II: Evaluation, @vanSchaik2024; @Shankar2024
 
-[Week 4 (16 Sep)]{.weekn}
+[Week 4 (04 Feb)]{.weekn}
 Iterative prompt development ---
 Labeling data, @Peterson2024, @Pei2023, Chapter 3 ---
 Exercise B due
 
-[Week 5 (23 Sep)]{.weekn}
+[Week 5 (11 Feb)]{.weekn}
 Prompt techniques, @Sahoo2024, @Schulhoff2024, Section 2 ---
 Milestone 1 due
 
-[Week 6 (30 Sep)]{.weekn}
+[Week 6 (18 Feb)]{.weekn}
 More on prompt techniques, @Schulhoff2024 ---
 Haystack introduction ---
 Exercise C due
 
-[Week 7 (07 Oct)]{.weekn}
-Prompt techniques, part three, @Schulhoff2024
+[Week 7 (25 Feb)]{.weekn}
+Recent work in genAI ---
+Inspect introduction
 
-[Week 8 (14 Oct)]{.weekn}
+[Week 8 (04 Mar)]{.weekn}
+Inspect details ---
 Prompt engineering techniques, @Wan2024 ---
 System prompts @Zhang2024 ---
-SageMaker introduction ---
-Colab introduction ---
 Milestone 2 due
 
-[Week 9 (21 Oct)]{.weekn}
+[Week 9 (11 Mar)]{.weekn}
 Prompting frameworks, @Liu2023
 
-[Week 10 (28 Oct)]{.weekn}
-Building a chatbot I
+[Spring Break!]{.weekn}
 
-[Week 11 (04 Nov)]{.weekn}
-Building a chatbot II ---
+[Week 10 (25 Mar)]{.weekn}
+Building a chatbot
+
+[Week 11 (01 Apr)]{.weekn}
+Context Engineering ---
 Milestone 3 due
 
-[Week 12 (11 Nov)]{.weekn}
-To be announced ---
+[Week 12 (08 Apr)]{.weekn}
+Pre-training models, @Xiao2025 ---
+Vibe Coding vs Agentic Engineering, @Osmani2025 ---
 Exercise D due
 
-[Week 13 (18 Nov)]{.weekn}
+[Week 13 (15 Apr)]{.weekn}
 Model survey
 
-[Thanksgiving Break!]{.weekn}
-
-[Week 14 (02 Dec)]{.weekn}
+[Week 14 (22 Apr)]{.weekn}
 Looking to the Future ---
 Milestone 4 due
 

@@ -35,18 +35,20 @@ mathfont: TeX Gyre Math
 menu:
   side: 'right'
 css: "style.css"
+jupyter: python3
+execute: 
+  echo: true
 ---
 
-::: {style="position: fixed; font-size: 4em; color: gray;"}
-Week Four
-:::
+# [Week FOUR]{.r-fit-text}
 
 # Agenda
-- Presentations: Tianyi, Srishti, Puneeth
+- Presentation: Shreya K
 - News
-- Review whatialreadyknow (Ishwari)
+- Review whatiknow
 - Q&A on eB
 - Q&A on m1
+- Simple chatbot
 - Iteration
 - Annotation
 - Work time
@@ -55,15 +57,23 @@ Week Four
 
 # News
 
-# WhatIAlreadyKnow (Ishwari)
+# WhatIKnow
+
+## Issues with the doc
+- Several people dated their contributions! Let's all do that
+- Nothing in the Intro tab? (shouldn't it introduce prompt engineering?)
+- How about more of your opinions / reflections on what you read?
+- The FAQ is empty! Don't you have questions?
+- Some items need a TLDR 
+- Are you finding it useful?
 
 # eB
 
 ## Specification
-- Assemble a bibliography in BibTeX format
-- The subject is PDF remediation
-- PDF remediation is the process of making a PDF accessible to people with disabilities
-- Most of the literature is about research papers students are required to read
+- Use gen AI to assemble a bibliography in BibTeX format
+- Manually assemble a bibliography at the ACM Digital Library
+- Compare them
+- The subject is PDF remediation: making a PDF accessible to people with disabilities
 - I'm familiar with this literature, making it easier for me to detect hallucinations
 - I can also judge the importance of the papers listed
 - A recent bibliography in this area listed 39 sources, of which only about 20 were relevant
@@ -73,10 +83,74 @@ Week Four
 
 ## Deliverable
 - A short qmd / html document describing the domain
-- The doc should include specification of whether you plan to run locally or using a cloud service
-- The doc should include a discussion of the possible datasets you might use (the actual dataset will be due in m2)
+- Use the template!
+- The doc should include a discussion of the possible datasets / skills / mcp servers you might use (the actual dataset will be due in m2)
 - You are not required to stick with the directions you give here, but this should be your current best guess of what you plan to do
 - Examples: chatbot to emulate a foreign leader; chatbot to triage banking problems; chatbot to analyze tweets
+
+# Simple chatbot
+
+## First, a Hello World in R 
+
+```{r}
+# install.packages("pacman")
+pacman::p_load(ellmer)
+client <- chat_google_gemini()
+client$chat("Summarize the plot of Romeo and Juliet in 20 words or fewer.")
+```
+
+Now `client` is an object (you can name it anything) and `chat` is a component of that object.
+
+## Continuing the same conversation
+
+```{r}
+client$chat("Now do Hamlet.")
+```
+
+... and it remembers the question from the previous call.
+
+## Same thing in Python
+First, say `pip install chatlas` in a terminal.
+
+```{python}
+from chatlas import ChatGoogle
+client = ChatGoogle(model = "gemini-2.5-flash")
+response = client.chat("Summarize the plot of Romeo and Juliet in 20 words or fewer.",echo="none")
+print(response)
+```
+
+Notice that the same exact answer may not be provided. This is a completely different conversation from the one in R.
+
+## This Python conversation can also be continued.
+
+```{python}
+response = client.chat("Now do Hamlet.",echo="none")
+print(response)
+```
+
+# Now a simple chatbot
+
+```{r}
+client =
+  chat_google_gemini(
+  system_prompt =
+    ellmer::interpolate_file("posit-expense-policy.md"))
+client$chat("I am a Posit employee. Based on the Posit Expense Policy, can I expense a hotel for business?")
+```
+## Cost
+Anthropic isn't too good about itemizing costs, so I'm going to guess that the above, after running many times, cost about 0.25 USD. If you want to know the cost per conversation, you have to keep looking at Anthropic's up to the minute meter.
+
+## Your turn
+- Do the same thing in Python, using whatever key you have (OpenAI, Gemini, Anthropic, etc.)
+- Put the key in an `~/.Renviron` file
+- First task: Find something (not an expense report, but you can use my `posit-expense-policy.md` to get started) to put in the system prompt
+- Can be in any domain you prefer, e.g., your project focus
+- Remember to use `.` instead of `$` and ChatAnthropic instead of chat_anthropic (or whatever---I'll show the [possible models](https://posit-dev.github.io/chatlas/get-started/models.html))
+
+# Iteration and annotation
+For iteration, I think we can just brainstorm a lot of prompts and use a `foreach` to run them through `chatlas` in different conversations. Remember that each time we initialized the variable `client`, we were starting a new conversation where we could reuse that variable. We could instead give the conversations different names and run them in parallel, skipping back and forth as we get new ideas.
+
+As for annotation, the effectiveness of system prompts makes it seem less pressing. Last semester, I asked students to annotate data for their projects. This semester, I'm not going to ask the same.
 
 # Iteration
 
@@ -191,11 +265,7 @@ python potato/flask_server.py start project-hub/politeness_rating/configs/polite
 
 See if you can make a stem-and-leaf plot for your data with an LLM
 
----
-
-::: {style="text-align: right; font-size: 300px; font-weight: bold;"}
-END
-:::
+# [END]{.r-fit-text}
 
 # References
 

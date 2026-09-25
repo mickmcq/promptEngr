@@ -43,15 +43,574 @@ You should reflect on your work and the utility of the LLM in this task.
 
 # Step one: Description of data
 
-$\langle$ replace this with your description of the variables $\rangle$
+## Load and preview the data
+
+```{r}
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(tidyr)
+
+# Load the Ames Housing dataset
+ames <- read.csv("../../resources/claude-code/amesHousing2011.csv")
+
+# Display basic information about the dataset
+cat("Dataset dimensions:", dim(ames)[1], "rows and", dim(ames)[2], "columns\n")
+cat("\nFirst few rows:\n")
+head(ames)
+
+# Display structure of the dataset
+str(ames)
+```
+
+## Summary statistics for key variables
+
+```{r}
+# Summary statistics for the target variable (SalePrice)
+summary(ames$SalePrice)
+
+# Summary statistics for key numeric variables
+key_numeric <- c("LotArea", "YearBuilt", "OverallQual", "OverallCond",
+                 "GrLivArea", "TotalBsmtSF", "FullBath", "BedroomAbvGr",
+                 "GarageCars", "SalePrice")
+
+summary(ames[, key_numeric])
+```
+
+## Distribution of Sale Price
+
+```{r}
+# Histogram of Sale Price
+ggplot(ames, aes(x = SalePrice)) +
+  geom_histogram(bins = 50, fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Sale Prices",
+       x = "Sale Price ($)",
+       y = "Frequency") +
+  theme_minimal() +
+  scale_x_continuous(labels = scales::comma)
+
+# Log-transformed Sale Price
+ggplot(ames, aes(x = log(SalePrice))) +
+  geom_histogram(bins = 50, fill = "darkgreen", color = "black") +
+  labs(title = "Distribution of Log(Sale Price)",
+       x = "Log(Sale Price)",
+       y = "Frequency") +
+  theme_minimal()
+```
+
+## Key categorical variables
+
+```{r}
+# Distribution of Overall Quality
+ggplot(ames, aes(x = factor(OverallQual))) +
+  geom_bar(fill = "coral") +
+  labs(title = "Distribution of Overall Quality Ratings",
+       x = "Overall Quality (1-10)",
+       y = "Count") +
+  theme_minimal()
+
+# Distribution of Neighborhood
+neighborhood_counts <- ames %>%
+  count(Neighborhood) %>%
+  arrange(desc(n))
+
+ggplot(neighborhood_counts, aes(x = reorder(Neighborhood, n), y = n)) +
+  geom_bar(stat = "identity", fill = "purple") +
+  coord_flip() +
+  labs(title = "Number of Houses by Neighborhood",
+       x = "Neighborhood",
+       y = "Count") +
+  theme_minimal()
+```
+
+## Continuous variables exploration
+
+```{r}
+# Living Area vs Sale Price
+ggplot(ames, aes(x = GrLivArea, y = SalePrice)) +
+  geom_point(alpha = 0.5, color = "steelblue") +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  labs(title = "Sale Price vs. Living Area",
+       x = "Above Ground Living Area (sq ft)",
+       y = "Sale Price ($)") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::comma)
+
+# Year Built vs Sale Price
+ggplot(ames, aes(x = YearBuilt, y = SalePrice)) +
+  geom_point(alpha = 0.5, color = "darkgreen") +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  labs(title = "Sale Price vs. Year Built",
+       x = "Year Built",
+       y = "Sale Price ($)") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::comma)
+
+# Overall Quality vs Sale Price
+ggplot(ames, aes(x = factor(OverallQual), y = SalePrice)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(title = "Sale Price by Overall Quality",
+       x = "Overall Quality (1-10)",
+       y = "Sale Price ($)") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::comma)
+```
+
+## Correlation analysis
+
+```{r}
+# Select numeric variables for correlation analysis
+numeric_vars <- ames %>%
+  select_if(is.numeric) %>%
+  select(-Order, -PID) %>%  # Remove ID columns
+  na.omit()
+
+# Calculate correlation matrix
+cor_matrix <- cor(numeric_vars)
+
+# Find variables most correlated with SalePrice
+saleprice_cor <- cor_matrix[,"SalePrice"]
+saleprice_cor_sorted <- sort(abs(saleprice_cor), decreasing = TRUE)
+cat("Top 10 variables correlated with SalePrice:\n")
+print(head(saleprice_cor_sorted, 10))
+
+# Visualize correlation matrix for top variables
+top_vars <- names(head(saleprice_cor_sorted, 12))
+cor_subset <- cor(numeric_vars[, top_vars])
+
+corrplot(cor_subset, method = "color", type = "upper",
+         tl.col = "black", tl.srt = 45,
+         addCoef.col = "black", number.cex = 0.7,
+         title = "Correlation Matrix of Top Variables",
+         mar = c(0,0,1,0))
+```
+
+## Relationships between key variable pairs
+
+```{r}
+# Total Basement SF vs Sale Price
+ggplot(ames, aes(x = TotalBsmtSF, y = SalePrice)) +
+  geom_point(alpha = 0.5, color = "brown") +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "Sale Price vs. Total Basement Area",
+       x = "Total Basement Area (sq ft)",
+       y = "Sale Price ($)") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::comma)
+
+# Garage Cars vs Sale Price
+ggplot(ames, aes(x = factor(GarageCars), y = SalePrice)) +
+  geom_boxplot(fill = "lightgreen") +
+  labs(title = "Sale Price by Garage Capacity",
+       x = "Number of Cars in Garage",
+       y = "Sale Price ($)") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::comma)
+
+# Living Area vs Overall Quality
+ggplot(ames, aes(x = GrLivArea, y = SalePrice, color = factor(OverallQual))) +
+  geom_point(alpha = 0.6) +
+  scale_color_viridis_d() +
+  labs(title = "Sale Price vs. Living Area by Overall Quality",
+       x = "Above Ground Living Area (sq ft)",
+       y = "Sale Price ($)",
+       color = "Overall\nQuality") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::comma)
+```
 
 # Step two: Inferences about the determinants of the sale price
 
-$\langle$ replace this with your regression analysis  $\rangle$
+## Baseline model: Living Area only
+
+```{r}
+# Start with a simple model using just living area
+model1 <- lm(SalePrice ~ GrLivArea, data = ames)
+summary(model1)
+```
+
+The baseline model shows that living area alone explains a significant portion of sale price variance.
+
+## Model 2: Adding Overall Quality
+
+```{r}
+# Add overall quality rating
+model2 <- lm(SalePrice ~ GrLivArea + OverallQual, data = ames)
+summary(model2)
+
+# Compare models
+anova(model1, model2)
+```
+
+Adding Overall Quality significantly improves the model, as evidenced by the increased R-squared and significant ANOVA test.
+
+## Model 3: Adding Year Built and Basement Area
+
+```{r}
+# Add year built and total basement square footage
+model3 <- lm(SalePrice ~ GrLivArea + OverallQual + YearBuilt + TotalBsmtSF,
+             data = ames)
+summary(model3)
+
+# Compare with previous model
+anova(model2, model3)
+```
+
+## Model 4: Adding Garage and Bathroom Features
+
+```{r}
+# Add garage capacity and bathrooms
+model4 <- lm(SalePrice ~ GrLivArea + OverallQual + YearBuilt + TotalBsmtSF +
+             GarageCars + FullBath + HalfBath, data = ames)
+summary(model4)
+
+# Compare with previous model
+anova(model3, model4)
+```
+
+## Model 5: Adding Neighborhood (Categorical Variable)
+
+```{r}
+# Add neighborhood as a categorical predictor
+model5 <- lm(SalePrice ~ GrLivArea + OverallQual + YearBuilt + TotalBsmtSF +
+             GarageCars + FullBath + HalfBath + Neighborhood, data = ames)
+summary(model5)
+
+# Compare with previous model
+anova(model4, model5)
+```
+
+## Comprehensive Model with Additional Features
+
+```{r}
+# Build a more comprehensive model
+model6 <- lm(SalePrice ~ GrLivArea + OverallQual + OverallCond + YearBuilt +
+             YearRemod.Add + TotalBsmtSF + X1stFlrSF + X2ndFlrSF +
+             FullBath + HalfBath + BedroomAbvGr + KitchenAbvGr +
+             TotRmsAbvGrd + Fireplaces + GarageCars + GarageArea +
+             WoodDeckSF + OpenPorchSF + Neighborhood + BldgType,
+             data = ames)
+summary(model6)
+```
+
+## Checking for Multicollinearity
+
+```{r}
+# Calculate VIF (Variance Inflation Factor) to check for multicollinearity
+library(car)
+vif_values <- vif(model6)
+print("VIF values for comprehensive model:")
+print(vif_values)
+
+# Identify problematic variables (VIF > 10)
+high_vif <- vif_values[vif_values > 10]
+if(length(high_vif) > 0) {
+  cat("\nVariables with high multicollinearity (VIF > 10):\n")
+  print(high_vif)
+}
+```
+
+## Refined Model: Removing Multicollinearity Issues
+
+```{r}
+# Remove variables with high VIF (GarageArea and 1stFlrSF likely correlated with others)
+model7 <- lm(SalePrice ~ GrLivArea + OverallQual + OverallCond + YearBuilt +
+             YearRemod.Add + TotalBsmtSF + FullBath + HalfBath +
+             BedroomAbvGr + TotRmsAbvGrd + Fireplaces + GarageCars +
+             WoodDeckSF + OpenPorchSF + Neighborhood + BldgType,
+             data = ames)
+summary(model7)
+
+# Check VIF again
+vif_model7 <- vif(model7)
+print("VIF values for refined model:")
+print(vif_model7)
+```
+
+## Model Comparison Summary
+
+```{r}
+# Create a comparison table
+library(broom)
+
+model_comparison <- data.frame(
+  Model = c("Model 1", "Model 2", "Model 3", "Model 4", "Model 5", "Model 6", "Model 7"),
+  Variables = c("GrLivArea",
+                "GrLivArea + OverallQual",
+                "Model2 + YearBuilt + TotalBsmtSF",
+                "Model3 + GarageCars + Bathrooms",
+                "Model4 + Neighborhood",
+                "Comprehensive (20+ variables)",
+                "Refined (removed multicollinearity)"),
+  R_squared = c(
+    summary(model1)$r.squared,
+    summary(model2)$r.squared,
+    summary(model3)$r.squared,
+    summary(model4)$r.squared,
+    summary(model5)$r.squared,
+    summary(model6)$r.squared,
+    summary(model7)$r.squared
+  ),
+  Adj_R_squared = c(
+    summary(model1)$adj.r.squared,
+    summary(model2)$adj.r.squared,
+    summary(model3)$adj.r.squared,
+    summary(model4)$adj.r.squared,
+    summary(model5)$adj.r.squared,
+    summary(model6)$adj.r.squared,
+    summary(model7)$adj.r.squared
+  ),
+  AIC = c(
+    AIC(model1),
+    AIC(model2),
+    AIC(model3),
+    AIC(model4),
+    AIC(model5),
+    AIC(model6),
+    AIC(model7)
+  )
+)
+
+print(model_comparison)
+```
+
+## Interpretation of Final Model (Model 7)
+
+```{r}
+# Display coefficient summary for final model
+coef_summary <- summary(model7)$coefficients
+significant_coefs <- coef_summary[coef_summary[,4] < 0.05, ]
+
+cat("Statistically significant predictors (p < 0.05):\n")
+print(significant_coefs)
+
+# Calculate confidence intervals for coefficients
+cat("\n95% Confidence intervals for coefficients:\n")
+print(confint(model7))
+```
+
+### Key Findings:
+
+The regression analysis reveals that sale price is determined by multiple factors:
+
+1. **Living Area (GrLivArea)**: Each additional square foot increases sale price
+2. **Overall Quality (OverallQual)**: Higher quality ratings significantly increase price
+3. **Year Built & Year Remodeled**: Newer homes command higher prices
+4. **Basement Area (TotalBsmtSF)**: Additional basement space adds value
+5. **Bathrooms**: Full and half bathrooms contribute to price
+6. **Garage Capacity (GarageCars)**: More garage space increases value
+7. **Neighborhood**: Location has a significant effect (categorical variable)
+8. **Building Type**: Type of dwelling affects price
+
+The final model (Model 7) achieves a high R-squared value, explaining a substantial portion of the variance in sale prices while avoiding multicollinearity issues.
 
 # Step three: Regression diagnostics
 
-$\langle$ replace this with your regression diagnostics $\rangle$
+## Diagnostic Plots for Final Model (Model 7)
+
+The four standard diagnostic plots help us assess whether the regression assumptions are met:
+
+```{r}
+# Set up plotting area for 2x2 grid
+par(mfrow = c(2, 2))
+
+# Create the four diagnostic plots
+plot(model7)
+
+# Reset plotting area
+par(mfrow = c(1, 1))
+```
+
+## Analysis of Diagnostic Plots
+
+### 1. Residuals vs Fitted Plot (Top Left)
+
+This plot checks for **linearity** and **homoscedasticity** (constant variance):
+
+- **What to look for**: The residuals should be randomly scattered around the horizontal line at zero with no clear pattern
+- **Observations**: The red smoothed line should be approximately horizontal and close to zero
+- **Issues to watch for**:
+  - Curved patterns suggest non-linearity
+  - Funnel shapes indicate heteroscedasticity (non-constant variance)
+
+```{r}
+# Additional residual analysis
+plot(model7$fitted.values, model7$residuals,
+     main = "Residuals vs Fitted Values (Detailed)",
+     xlab = "Fitted Values",
+     ylab = "Residuals",
+     pch = 20,
+     col = rgb(0, 0, 1, 0.3))
+abline(h = 0, col = "red", lwd = 2)
+
+# Add smoothed line
+lines(lowess(model7$fitted.values, model7$residuals), col = "green", lwd = 2)
+```
+
+### 2. Normal Q-Q Plot (Top Right)
+
+This plot checks if the **residuals are normally distributed**:
+
+- **What to look for**: Points should fall approximately along the diagonal reference line
+- **Observations**: Deviations at the tails indicate departure from normality
+- **Issues to watch for**:
+  - Points curving away from the line suggest skewed residuals
+  - Heavy tails indicate outliers
+
+```{r}
+# Additional normality test
+shapiro_test <- shapiro.test(sample(model7$residuals, 5000))
+cat("Shapiro-Wilk normality test:\n")
+cat("W =", shapiro_test$statistic, ", p-value =", shapiro_test$p.value, "\n")
+
+# Histogram of residuals
+hist(model7$residuals,
+     breaks = 50,
+     main = "Distribution of Residuals",
+     xlab = "Residuals",
+     col = "lightblue",
+     freq = FALSE)
+curve(dnorm(x, mean = mean(model7$residuals), sd = sd(model7$residuals)),
+      add = TRUE, col = "red", lwd = 2)
+```
+
+### 3. Scale-Location Plot (Bottom Left)
+
+This plot checks for **homoscedasticity** (constant variance):
+
+- **What to look for**: Points should be randomly scattered with a horizontal red line
+- **Observations**: The spread of residuals should be roughly constant across fitted values
+- **Issues to watch for**:
+  - Upward or downward trends indicate heteroscedasticity
+  - Fan shapes suggest variance changes with fitted values
+
+```{r}
+# Breusch-Pagan test for heteroscedasticity
+library(lmtest)
+bp_test <- bptest(model7)
+cat("Breusch-Pagan test for heteroscedasticity:\n")
+cat("BP =", bp_test$statistic, ", p-value =", bp_test$p.value, "\n")
+if(bp_test$p.value < 0.05) {
+  cat("Evidence of heteroscedasticity detected (p < 0.05)\n")
+} else {
+  cat("No significant evidence of heteroscedasticity (p >= 0.05)\n")
+}
+```
+
+### 4. Residuals vs Leverage Plot (Bottom Right)
+
+This plot identifies **influential observations** and **outliers**:
+
+- **What to look for**: Points with high leverage and large residuals (outside Cook's distance contours)
+- **Cook's Distance**: Values > 0.5 or > 1.0 suggest influential points
+- **Issues to watch for**:
+  - Points in upper-right or lower-right corners are influential
+  - These points can disproportionately affect the regression coefficients
+
+```{r}
+# Identify influential observations
+cooks_d <- cooks.distance(model7)
+influential <- which(cooks_d > 4/length(cooks_d))
+
+cat("Number of influential observations (Cook's D > 4/n):", length(influential), "\n")
+if(length(influential) > 0) {
+  cat("Influential observation indices:\n")
+  print(head(influential, 10))
+
+  # Show details of most influential observations
+  top_influential <- order(cooks_d, decreasing = TRUE)[1:5]
+  cat("\nTop 5 most influential observations:\n")
+  print(ames[top_influential, c("SalePrice", "GrLivArea", "OverallQual",
+                                 "YearBuilt", "Neighborhood")])
+}
+
+# Plot Cook's distance
+plot(cooks_d, type = "h",
+     main = "Cook's Distance",
+     ylab = "Cook's Distance",
+     xlab = "Observation Index")
+abline(h = 4/length(cooks_d), col = "red", lty = 2)
+```
+
+## Additional Diagnostic Checks
+
+### Checking for Non-linearity
+
+```{r}
+# Component + Residual plots for key continuous variables
+library(car)
+
+# Create component + residual plots for main predictors
+crPlots(model7, terms = ~ GrLivArea + OverallQual + YearBuilt + TotalBsmtSF,
+        main = "Component + Residual Plots")
+```
+
+### Summary of Regression Assumptions
+
+```{r}
+cat("=== Regression Diagnostics Summary ===\n\n")
+
+# 1. Linearity
+cat("1. LINEARITY: Checked via Residuals vs Fitted plot\n")
+cat("   - Look for random scatter around zero\n\n")
+
+# 2. Independence (cannot fully test without time series, but check)
+library(car)
+dw_test <- durbinWatsonTest(model7)
+cat("2. INDEPENDENCE: Durbin-Watson test\n")
+cat("   DW statistic:", dw_test$dw, "\n")
+cat("   p-value:", dw_test$p, "\n")
+if(dw_test$p > 0.05) {
+  cat("   No significant autocorrelation detected\n\n")
+} else {
+  cat("   Warning: Possible autocorrelation in residuals\n\n")
+}
+
+# 3. Homoscedasticity
+cat("3. HOMOSCEDASTICITY: See Breusch-Pagan test above\n\n")
+
+# 4. Normality
+cat("4. NORMALITY: See Shapiro-Wilk test and Q-Q plot above\n\n")
+
+# 5. Multicollinearity
+cat("5. MULTICOLLINEARITY: VIF values from Step Two\n")
+mean_vif <- mean(vif_model7)
+cat("   Mean VIF:", mean_vif, "\n")
+if(mean_vif < 5) {
+  cat("   Multicollinearity is not a concern (mean VIF < 5)\n\n")
+} else {
+  cat("   Warning: Possible multicollinearity issues (mean VIF >= 5)\n\n")
+}
+
+# Model performance metrics
+cat("6. MODEL PERFORMANCE:\n")
+cat("   R-squared:", summary(model7)$r.squared, "\n")
+cat("   Adjusted R-squared:", summary(model7)$adj.r.squared, "\n")
+cat("   Residual Standard Error:", summary(model7)$sigma, "\n")
+cat("   F-statistic:", summary(model7)$fstatistic[1], "\n")
+```
+
+## Interpretation of Diagnostics
+
+Based on the diagnostic plots and tests, we can assess the quality of our regression model:
+
+1. **Linearity**: The Residuals vs Fitted plot shows whether the relationship between predictors and response is adequately captured by the linear model.
+
+2. **Normality**: The Q-Q plot and Shapiro-Wilk test indicate whether residuals follow a normal distribution, which is important for inference (confidence intervals and hypothesis tests).
+
+3. **Homoscedasticity**: The Scale-Location plot and Breusch-Pagan test reveal whether the variance of residuals is constant across all levels of fitted values.
+
+4. **Influential Points**: The Residuals vs Leverage plot identifies observations that have unusual influence on the regression coefficients.
+
+5. **Multicollinearity**: VIF values from Step Two ensure predictor variables are not too highly correlated with each other.
+
+If any assumptions are violated, potential remedies include:
+- **Non-linearity**: Transform variables (log, square root) or add polynomial terms
+- **Heteroscedasticity**: Use weighted least squares or transform the response variable
+- **Non-normal residuals**: Transform the response variable or use robust regression methods
+- **Influential points**: Investigate these cases; consider removing outliers if justified
+- **Multicollinearity**: Remove or combine correlated predictors
 
 # Step four: results
 

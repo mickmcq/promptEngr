@@ -1,0 +1,13 @@
+| Week | Presenter(s) |
+|------|--------------|
+|   03 | Hengchen, Feng |
+|   04 | ShreyaK |
+|   05 | Sanjai, JiHwan |
+|   06 | ShreyaM |
+|   07 | Prathyusha, Bruno |
+|   08 | Akhil |
+|   09 | SaiNikhil, Jesse |
+|   10 | Jiefang |
+|   11 | Alexa |
+|   12 | Hitanshi |
+

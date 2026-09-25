@@ -1,0 +1,310 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"localRAGchatbot\"\n",
+        "jupyter: python3\n",
+        "format:\n",
+        "  html:\n",
+        "    embed-resources: true\n",
+        "    toc: true\n",
+        "monofont: JetBrainsMono Nerd Font\n",
+        "mainfont: \"TeX Gyre Schola\"\n",
+        "---\n",
+        "\n",
+        "You should *not* try to render this file until you have run the code in the accompanying slides. You must have Ollama and DeepSeek-R1 installed on your machine, which is described in the lecture slides. Then you must be running Ollama via `ollama serve` in a separate terminal window.\n",
+        "\n",
+        "We will follow a modification of the tutorial by\n",
+        "Aashi Dutt at\n",
+        "[https://www.datacamp.com/tutorial/deepseek-r1-rag](https://www.datacamp.com/tutorial/deepseek-r1-rag)\n",
+        "\n",
+        "# Installations\n",
+        "\n",
+        "You must at least install the following packages (maybe more---I have over 300 python packages installed on my machine, and may just happen to have some required packages already installed). Note that, when you render this file, the following chunk *will not* be executed. This is because the keyword `bash` at the beginning of the chunk is not in curly braces. The reason for this is that the chunk should only be run once. The other chunks need to be run every time you want to run the code. You should copy and paste this first chunk into your terminal and run it.\n",
+        "\n",
+        "```bash\n",
+        "pip install langchain chromadb gradio ollama pymupdf langchain_ollama langchain_chroma\n",
+        "pip install -U langchain-community\n",
+        "```\n",
+        "\n",
+        "Unfortunately, I experienced some problems with the packages. I ran `pip-upgrade`, which is defined as\n",
+        "\n",
+        "```bash\n",
+        "alias pip-upgrade=\"pip list -o | cut -f1 -d' ' | tr ' ' '\\n' | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install -U\"\n",
+        "```\n",
+        "\n",
+        "in my `.bash_profile`. Somewhere in a kadillion lines of output was an error message that I did not catch at first, saying that my version of `pydantic` was incompatible with my version of `pydantic-core`. You can check your versions by running `pip list`. You *may* need to downgrade `pydantic_core` to 2.27.2 as I did. You can do this by running `pip install pydantic-core==2.27.2` after uninstalling `pydantic-core` with `pip uninstall pydantic-core`. Why would you need to do this? I found I was getting a lot of errors in `pydantic` that I could not resolve and that were not mentioned online. That's when I looked back at the `pip-upgrade` output and found the error message.\n",
+        "\n",
+        "# Package imports\n",
+        "You must import the following packages but be careful to just run this chunk first and watch the output. A couple of the functions are deprecated but still work. That may change and the error messages should give clues about what to do in that case."
+      ],
+      "id": "755727e4"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import ollama\n",
+        "from langchain_text_splitters import RecursiveCharacterTextSplitter\n",
+        "from langchain_community.document_loaders import PyMuPDFLoader\n",
+        "from langchain_community.embeddings import OllamaEmbeddings\n",
+        "from langchain_ollama import OllamaEmbeddings\n",
+        "from chromadb.config import Settings\n",
+        "from chromadb import Client\n",
+        "from langchain_chroma import Chroma\n",
+        "import gradio as gr\n",
+        "import re\n",
+        "from concurrent.futures import ThreadPoolExecutor"
+      ],
+      "id": "637943f1",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# The document\n",
+        "The whole point of this tutorial is create a chatbot that can answer questions about the book *Foundations of LLMs* by Xiao and Zhu. The following chunk loads the document. It assumes you have downloaded the document and saved it in the same directory as this file. You then split it into smaller chunks, use DeepSeek-R1 to generate embeddings, and store the embeddings in a vector store.\n",
+        "\n",
+        "# Packages\n",
+        "You will use a number of packages to accomplish this. First is `PyMuPDFLoader`, which allows you to load a PDF document. You can read more about it at [https://pymupdf.readthedocs.io/en/latest/rag.html](https://pymupdf.readthedocs.io/en/latest/rag.html). It has many more capabilities we won't use and handles many other filetypes. We're just going to load a well-behaved PDF.\n",
+        "\n",
+        "Second, we split the texts into chunks. The `RecursiveCharacterTextSplitter` is a very popular tool provided by `LangChain` for, as you might guess, splitting large amounts of text, such as our 231 page book, into small chunks. `LangChain` is a popular framework for building LLM applications. It *orchestrates* the various tools you use. You can read more about it at [https://python.langchain.com/docs/](https://python.langchain.com/docs/).\n",
+        "\n",
+        "Next we generate embeddings for each chunk, using DeepSeek R1. The actual generation process is quite time-consuming on a typical laptop. You can see in the comments that it takes seven minutes on my machine and that you can tell when it's done by watching the window running `ollama serve`.\n",
+        "\n",
+        "What are we going to do with these embeddings, which constitute a vector representation of the text? We will use them to create a vector database, which we will use to answer questions about the book. For this, we'll use ChromaDB, a popular vector database. You can read more about it at [https://docs.trychroma.com/](https://docs.trychroma.com/).\n",
+        "\n",
+        "# The setup code"
+      ],
+      "id": "d86c9a30"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#. Step 1: Load the document using PyMuPDFLoader\n",
+        "loader = PyMuPDFLoader(\"Xiao2025.pdf\")\n",
+        "documents = loader.load()\n",
+        "\n",
+        "#. Step 2: Split text into smaller chunks\n",
+        "text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)\n",
+        "chunks = text_splitter.split_documents(documents)\n",
+        "\n",
+        "#. Step 3: Initialize Ollama embeddings\n",
+        "embedding_function = OllamaEmbeddings(model=\"nomic-embed-text\")\n",
+        "\n",
+        "\n",
+        "#. Step 4: Parallelize embedding generation\n",
+        "def generate_embedding(chunk):\n",
+        "    return embedding_function.embed_query(chunk.page_content)\n",
+        "\n",
+        "#. This next line takes about 7 minutes on my M1 Macbook Pro with 32GB RAM;\n",
+        "#.   you can tell when it's done by watching the window running `ollama serve`\n",
+        "with ThreadPoolExecutor() as executor:\n",
+        "    embeddings = list(executor.map(generate_embedding, chunks))\n",
+        "\n",
+        "#. Step 5: Recreate the collection\n",
+        "client = Client(Settings())\n",
+        "#. client.delete_collection(\n",
+        "#.     name=\"foundations_of_llms\"\n",
+        "#. )  # Delete any existing collection if needed\n",
+        "collection = client.get_or_create_collection(name=\"foundations_of_llms\")\n",
+        "\n",
+        "#. Step 6: Add documents and embeddings to Chroma\n",
+        "for idx, chunk in enumerate(chunks):\n",
+        "    collection.add(\n",
+        "        documents=[chunk.page_content],\n",
+        "        metadatas=[{\"id\": idx}],\n",
+        "        embeddings=[embeddings[idx]],\n",
+        "        ids=[str(idx)],  # Ensure IDs are strings\n",
+        "    )\n",
+        "\n",
+        "print(\"Embeddings stored successfully!\")"
+      ],
+      "id": "3d8214e5",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Retrieve the context to answer the question\n",
+        "Next you have to initialize a retriever that will retrieve the context from the vector store."
+      ],
+      "id": "dff59e39"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#. initialize retriever using chroma collection\n",
+        "\n",
+        "retriever = Chroma(\n",
+        "    collection_name=\"foundations_of_llms\",\n",
+        "    client=client,\n",
+        "    embedding_function=embedding_function,\n",
+        ").as_retriever()\n",
+        "\n",
+        "\n",
+        "def retrieve_context(question):\n",
+        "    results = retriever.get_relevant_documents(question)\n",
+        "    context = \"\\n\\n\".join([doc.page_content for doc in results])\n",
+        "    return context"
+      ],
+      "id": "2c57257c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Create the prompt\n",
+        "Next, create the prompt, send it to DeepSeek-R1 using Ollama, and obtain a response. If this doesn't work, it may mean that you are not running Ollama via `ollama serve` in a separate terminal window."
+      ],
+      "id": "0617b3e2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def query_qwen(question, context):\n",
+        "\n",
+        "    # Format the input as a structured prompt\n",
+        "    formatted_promt = f\"Question: {question}\\n\\nContext: {context}\"\n",
+        "\n",
+        "    # Send the prompt to DeepSeek-R1 using Ollama\n",
+        "    response = ollama.chat(\n",
+        "        model=\"qwen3.5:9b\", messages=[{\"role\": \"user\", \"content\": formatted_promt}]\n",
+        "    )\n",
+        "\n",
+        "    # Extract and clean the response\n",
+        "    response_content = response[\"message\"][\"content\"]\n",
+        "    final_answer = re.sub(\n",
+        "        r\"<think>.*?</think>\", \"\", response_content, flags=re.DOTALL\n",
+        "    ).strip()\n",
+        "    return final_answer"
+      ],
+      "id": "74c2fcc2",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Define the RAG pipeline\n",
+        "Next, define the RAG (retrieval augmented generation) pipeline."
+      ],
+      "id": "a9f93348"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def rag_pipeline(question):\n",
+        "\n",
+        "    # Retrieve context from the vector store\n",
+        "    context = retrieve_context(question)\n",
+        "\n",
+        "    # Generate an answer using DeepSeek-R1\n",
+        "    answer = query_qwen(question, context)\n",
+        "    return answer"
+      ],
+      "id": "fbf9d74b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Actually run the RAG pipeline."
+      ],
+      "id": "24f75777"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def ask_question(question):\n",
+        "    # Run the RAG pipeline\n",
+        "    return rag_pipeline(question)"
+      ],
+      "id": "217a61b3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Gradio interface\n",
+        "Finally, create a Gradio interface for the chatbot. This will appear as a web page in your browser. The user can enter as many prompts as they like. Gradio is a popular library for creating web interfaces for machine learning models. You can read more about it at [https://gradio.app/](https://gradio.app/)."
+      ],
+      "id": "cee635fc"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#. Create a Gradio interface\n",
+        "interface = gr.Interface(\n",
+        "    fn=ask_question,\n",
+        "    inputs=\"text\",\n",
+        "    outputs=\"text\",\n",
+        "    title=\"RAG Chatbot: Foundations of LLMs\",\n",
+        "    description=\"Ask any question about the Foundations of LLMs book. Powered by Qwen 3.5.\",\n",
+        ")"
+      ],
+      "id": "01861208",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Note that I have commented out the following line that actually launches the Gradio interface. This is only for rendering purposes. It should be commented out when you render the document. When you want to actually run the code, you should uncomment it. The interface will then appear in your browser if you point to `http://localhost:7860`."
+      ],
+      "id": "aa1c74e4"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#. Launch the Gradio app\n",
+        "#. interface.launch(debug=True)"
+      ],
+      "id": "66228eff",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Here is a screenshot of the interface, answering a simple question.\n",
+        "\n",
+        "![](fiRAGchatbot.png){alt-text=\"A simple question and answer interface\"}\n"
+      ],
+      "id": "f8224606"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/Users/mm223266/.pyenv/versions/3.12.6/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

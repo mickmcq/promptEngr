@@ -7,9 +7,10 @@ author:
     affiliations: University of Texas at Austin
 date: last-modified
 date-format: "DD MMM YYYY"
+execute:
+  echo: true
 format: 
   clean-revealjs:
-    self-contained: true
     slide-number: false
     logo: quarto.png
     footer-logo-link: "https://quarto.org"
@@ -19,9 +20,6 @@ format:
     subtitle-as-header: false
     controls: true
     controls-layout: edges
-html-math-method:
-  method: mathml
-  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 filters:
   - reveal-header
   - autofade.lua
@@ -30,24 +28,23 @@ number-sections: false
 engine: knitr
 embed-resources: true
 bibliography: master.bib
-monofont: JetBrainsMono Nerd Font
+monofont: VictorMono Nerd Font
 mathfont: TeX Gyre Math
 menu:
   side: 'right'
 css: "style.css"
 ---
 
-::: {style="position: fixed; font-size: 4em; color: gray;"}
-Week Six
-:::
+# [Week Six]{.r-fit-text}
 
 # Agenda
-- Presentations: Kylie, Aditya
+- Guest from Google: Jasleen Singh
+- Presentations: Abhiram, Ethan
 - News
-- Review whatialreadyknow (Ishwari)
-- eC review
+- Review whatiknow (Dhruvi)
+- eB review
 - m1 review
-- Haystack (again)
+- Agenta.ai
 - Techniques
 - Work time
 
@@ -59,19 +56,28 @@ Week Six
 
 $\langle$ pause to look at this week's edition $\rangle$
 
-# WhatIAlreadyKnow (Ishwari)
-
-# eC review
+# WhatIKnow (Dhruvi)
 
 $\langle$ look at the doc $\rangle$
 
+# eB review
+
 # m1 review
+
+<!--
 - It's a colossal blunder to fail to turn in either the qmd or html file
 - I'm going to suggest that almost everyone use Huggingface datasets instead of Kaggle
   - For example, Huggingface has 24 Shakespeare datasets
 - Each group should probably focus on one task, such as recommendation (3), question answering (1), or summarization (2) (One group has several tasks)
 - Although you are using different platforms, you will be required to extensively document what you're doing in a qmd file and an html file for the three remaining milestones
 - If you're using Jupyter, leave enough time to translate your notebook to quarto
+-->
+
+# Agenta.ai
+
+$\langle$ Do the Quick Start under Evaluations $\rangle$
+
+<!--
 
 # Haystack
 Break into *new* pairs as specified on Canvas.
@@ -135,6 +141,8 @@ The tutorial shows you how to create a generative question-answering pipeline us
 
 These are Beginner tutorials. There are also Intermediate and Advanced tutorials linked from the same page as the one we just did.
 
+-->
+
 # More on Techniques
 Last time, we did few-shot and zero-shot prompting techniques. Now we'll move on to thought generation techniques and others. Again, we're referring to @Schulhoff2024.
 
@@ -189,11 +197,7 @@ Last time, we did few-shot and zero-shot prompting techniques. Now we'll move on
 - Chain-of-Verification
 - Cumulative Reasoning
 
-#
-
-::: {style="text-align: right; font-size: 300px; font-weight: bold;"}
-END
-:::
+# [END]{.r-fit-text}
 
 # References
 
@@ -204,5 +208,5 @@ END
 
 This slideshow was produced using `quarto`
 
-Fonts are *Roboto Light*, *Roboto Bold*, and *JetBrains Mono Nerd Font*
+Fonts are *Roboto Light*, *Roboto Bold*, and *VictorMono Nerd Font*
 

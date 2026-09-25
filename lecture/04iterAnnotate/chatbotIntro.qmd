@@ -1,0 +1,85 @@
+---
+title: Chatbot Intro
+subtitle: |
+  Prompt Engineering<br>
+  Fall 2025
+date: today
+format:
+  html:
+    embed-resources: true
+    toc: true
+    theme:
+      - theme.scss
+mainfont: "TeX Gyre Schola"
+monofont: JetBrainsMono Nerd Font
+mathfont: TeX Gyre Schola Math
+jupyter: python3
+engine: knitr
+execute: 
+  echo: true
+  eval: true
+  include: true
+---
+
+# Simple chatbot
+
+## First, a Hello World in R
+
+```{r}
+#| keep-md: true
+# install.packages(pacman)
+pacman::p_load(ellmer)
+client <- chat_anthropic(model = "claude-sonnet-4-20250514")
+client$chat("Summarize the plot of Romeo and Juliet in 20 words or fewer.")
+```
+
+Now `client` is an object (you can name it anything) and `chat` is a component of that object.
+
+## Continuing the same conversation
+
+```{r}
+client$chat("Now do Hamlet.")
+```
+
+... and it remembers the question from the previous call.
+
+## Same thing in Python
+
+First, say `pip install chatlas` in a terminal.
+
+```{python}
+from chatlas import ChatAnthropic
+client = ChatAnthropic(model = "claude-sonnet-4-20250514")
+client.chat("Summarize the plot of Romeo and Juliet in 20 words or fewer.")
+```
+
+Notice that the same exact answer may not be provided. This is a completely different conversation from the one in R.
+
+## This Python conversation can also be continued.
+
+```{python}
+client.chat("Now do Hamlet.")
+```
+
+# Now a simple chatbot
+
+```{r}
+pacman::p_load(ellmer)
+client =
+  chat_anthropic(model = "claude-sonnet-4-20250514",
+  system_prompt =
+    ellmer::interpolate_file("posit-expense-policy.md"))
+client$chat("I am a Posit employee. Based on the Posit Expense Policy, can I expense a hotel for business?")
+```
+
+## Cost
+
+Anthropic isn't too good about itemizing costs, so I'm going to guess that the above, after running many times, cost about 0.25 USD. If you want to know the cost per conversation, you have to keep looking at Anthropic's up to the minute meter.
+
+## Your turn
+
+-   Do the same thing in Python, using whatever key you have (OpenAI, Gemini, Anthropic, etc.)
+-   Put the key in an `~/.Renviron` file
+-   First task: Find something (not an expense report, but you can use my `posit-expense-policy.md` to get started) to put in the system prompt
+-   Can be in any domain you prefer, e.g., your project focus
+-   Remember to use `.` instead of `$` and ChatAnthropic instead of chat_anthropic (or whatever---I'll show the [possible models](https://posit-dev.github.io/chatlas/get-started/models.html))

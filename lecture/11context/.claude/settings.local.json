@@ -1,0 +1,11 @@
+{
+  "disabledMcpjsonServers": [
+    "figma-desktop"
+  ],
+  "permissions": {
+    "allow": [
+      "Read(//Users/mm223266/.config/nvim/**)",
+      "Read(//Users/mm223266/**)"
+    ]
+  }
+}

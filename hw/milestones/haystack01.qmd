@@ -1,6 +1,5 @@
 ---
 title: "Haystack Tutorial: Basic QA Pipeline with RAG"
-subtitle: "milestone 1"
 date: today
 author: Mick McQuaid
 format:
@@ -28,7 +27,7 @@ You are free to do this differently or not at all, depending on your Python inst
 
 # Install Haystack
 
-The following should NOT be run in this document. Run it in a terminal. You may render this document multiple times but you should only install Haystack once.
+The following chunk should NOT be run in this document. Run it in a terminal. You may render this document multiple times but you should only install Haystack once.
 
 ```bash
 #| eval: false

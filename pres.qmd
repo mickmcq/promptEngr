@@ -1,0 +1,30 @@
+# Bruno and Jesse
+- Upload resume and job description
+- Analyze
+- Six datasets from Kaggle and Huggingface
+- Stretch goal: sample resumes for each job description
+
+# Hengchen and Jiefang
+- FlakyDoc Cloud API Chatbox
+- Helps to diagnose whether a task is flaky
+- Also answers questions about flaky tests
+- About 10,000 labeled examples
+- Gives an example where sleep is of arbitrary length of time
+- Uses ground truth of some labeled examples
+
+# Sanjai and Shreya (Shreya absent)
+- Scrappy Cook
+- Used chainlink for interface
+- Using Ragas (?) for eval
+
+# Sai Nikhil and Prathyusha
+- Course RAG Chatbot for NLP
+- What is the use case for this tool?
+- How did you calculate cost?
+- Inconclusive error bars
+
+# Akhil and Feng
+- Cancer survival prediction
+- Curse of dimensionality problem
+- RAG performed worse than no RAG due to curse?
+

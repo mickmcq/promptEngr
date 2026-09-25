@@ -1,0 +1,82 @@
+---
+title: "milestone 1"
+subtitle: "Project Focus"
+date: today
+author:
+  - Group name
+  - member 1 name
+  - member 2 name
+  - member 3 name
+  - member 4 name
+format:
+  html:
+    toc: true
+    embed-resources: true
+    number-sections: true
+mainfont: TeX Gyre Schola
+monofont: JetBrainsMono Nerd Font
+mathfont: TeX Gyre Schola Math
+---
+
+(Turn in this .qmd file and the rendered .html file.)
+
+(Be sure to delete all the instructions in parnentheses before you turn in your file.)
+
+(Feel free to add more sections and subsections to describe your project. This is just a minimum.)
+
+# Name of the project
+(The name of the project goes here. Choose something memorable and evocative of your goal.)
+
+# Background
+
+## Domain
+(The domain of the project goes here. Is it about news, insurance, diet, music, legal, accessibility, or something else?)
+
+## Why this domain?
+(What makes this a suitable domain for your project?)
+
+# Solution
+
+## Target Users
+(Tell who would be likely to use your chatbot.)
+
+## Problem(s) to be solved
+(What problem(s) do the users experience that your solution can help with?)
+
+## Example prompts
+(Give a few examples to help me understand the use of the chatbot,)
+
+# Model(s)
+(Tell what models you plan to use and whether you will run them locally or in the cloud.)
+
+# Potential datasets
+(What data will you feed your chatbot?)
+
+(Note: you don't have to stick with these if you later find something better.)
+
+(Note: although most groups are likely to choose textual data, nothing prevents you from using labeled image data, depending on the model's capabilities.)
+
+(Note: the best source for datasets is HuggingFace. Information from the HuggingFace data card would be helpful here.)
+
+# References
+(List references to publications or sites you've used to develop your idea.)
+
+# Addendum: Features of this file
+Note: delete this entire section before you turn in the file!
+
+-   Front matter
+    -   Includes your name
+    -   Includes the keyword "today" which resolves to the date on which you render the document
+    -   Includes fonts---you should install these fonts on your computer or change the font specification to fonts you already have on your computer
+    -   Includes the format (html) to which Quarto will render
+    -   Includes some directives that are specific to that format: toc and embed-resources
+    -   `toc` causes the table of contents to be rendered, on the right side of the frame by default, but you can change that if you wish
+    -   `embed-resources` causes any diagrams to be included in the html file itself rather than linked---that way you can just submit the html file and I can view it instead of having to submit linked files
+-   Headings: top level headings are preceded by **a blank line**, then a \# and a space; second level headings are preceded by **a blank line**, then \## and a space; you can go down several levels by increasing the number of \# symbols
+-   Bulleted lists, formed by preceding the list with a blank line (or a heading) and beginning each line with a dash and a space (both are important)
+-   LaTeX symbols, in this case $\langle$ and $\rangle$, which resolve to angle brackets when you render the document ... you can include any LaTeX math expressions between dollar signs or double dollar signs ... by the way, any dollar signs meant as real dollar signs should be preceded by a backslash, like \$ this, so Quarto doesn't get confused about whether you are starting an equation
+-   Programmatic keywords, preceded and followed by a backtick, in this case, the name `m1.bib` bibliography file ... this causes the keyword to be rendered in a code font
+-   Emphasis, by surrounding an *important* word with asterisks, causing it to be rendered in italics
+
+Of course, you will delete all the parenthesized instructions and comments in this file before you turn it in! I don't need to read them when I read your solution. The files you turn in (the qmd and the rendered html) will just include your work. These instructions and comments are just to help you get going.
+

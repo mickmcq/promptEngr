@@ -5,8 +5,6 @@ format:
   html:
     embed-resources: true
     toc: true
-    theme:
-      - theme.scss
 monofont: JetBrainsMono Nerd Font
 mainfont: "TeX Gyre Schola"
 ---
@@ -39,12 +37,13 @@ You must import the following packages but be careful to just run this chunk fir
 
 ```{python}
 import ollama
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_community.embeddings import OllamaEmbeddings
+from langchain_ollama import OllamaEmbeddings
 from chromadb.config import Settings
 from chromadb import Client
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 import gradio as gr
 import re
 from concurrent.futures import ThreadPoolExecutor
@@ -74,7 +73,7 @@ text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20
 chunks = text_splitter.split_documents(documents)
 
 #. Step 3: Initialize Ollama embeddings
-embedding_function = OllamaEmbeddings(model="deepseek-r1")
+embedding_function = OllamaEmbeddings(model="nomic-embed-text")
 
 
 #. Step 4: Parallelize embedding generation
@@ -91,7 +90,7 @@ client = Client(Settings())
 #. client.delete_collection(
 #.     name="foundations_of_llms"
 #. )  # Delete any existing collection if needed
-collection = client.create_collection(name="foundations_of_llms")
+collection = client.get_or_create_collection(name="foundations_of_llms")
 
 #. Step 6: Add documents and embeddings to Chroma
 for idx, chunk in enumerate(chunks):
@@ -120,7 +119,7 @@ retriever = Chroma(
 
 
 def retrieve_context(question):
-    results = retriever.get_relevant_documents(question)
+    results = retriever.invoke(question)
     context = "\n\n".join([doc.page_content for doc in results])
     return context
 
@@ -130,14 +129,14 @@ def retrieve_context(question):
 Next, create the prompt, send it to DeepSeek-R1 using Ollama, and obtain a response. If this doesn't work, it may mean that you are not running Ollama via `ollama serve` in a separate terminal window.
 
 ```{python}
-def query_deepseek(question, context):
+def query_qwen(question, context):
 
     # Format the input as a structured prompt
     formatted_promt = f"Question: {question}\n\nContext: {context}"
 
     # Send the prompt to DeepSeek-R1 using Ollama
     response = ollama.chat(
-        model="deepseek-r1", messages=[{"role": "user", "content": formatted_promt}]
+        model="qwen3.5:9b", messages=[{"role": "user", "content": formatted_promt}]
     )
 
     # Extract and clean the response
@@ -158,7 +157,7 @@ def rag_pipeline(question):
     context = retrieve_context(question)
 
     # Generate an answer using DeepSeek-R1
-    answer = query_deepseek(question, context)
+    answer = query_qwen(question, context)
     return answer
 ```
 
@@ -180,7 +179,7 @@ interface = gr.Interface(
     inputs="text",
     outputs="text",
     title="RAG Chatbot: Foundations of LLMs",
-    description="Ask any question about the Foundations of LLMs book. Powered by DeepSeek-R1.",
+    description="Ask any question about the Foundations of LLMs book. Powered by Qwen 3.5.",
 )
 ```
 

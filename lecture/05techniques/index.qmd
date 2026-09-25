@@ -9,6 +9,7 @@ date: last-modified
 date-format: "DD MMM YYYY"
 format: 
   clean-revealjs:
+    transition: fade
     self-contained: true
     slide-number: false
     logo: quarto.png
@@ -30,46 +31,52 @@ number-sections: false
 engine: knitr
 embed-resources: true
 bibliography: master.bib
-monofont: JetBrainsMono Nerd Font
+monofont: VictorMono Nerd Font
 mathfont: TeX Gyre Math
 menu:
   side: 'right'
 css: "style.css"
 ---
 
-::: {style="position: fixed; font-size: 4em; color: gray;"}
-Week Five
-:::
+# [Week FIVE]{.r-fit-text}
 
 # Agenda
-- Presentations: Vanshita, Jaykumar
+- Presentation: Sanjai
 - News
-- Review whatialreadyknow (Ishwari)
+- Review whatiknow (Dhruvi)
 - eB review
 - eC preview
 - m1 questions
-- Agenta (again)
-- Potato (again)
+- Finish previous chatbot
+- Introduce Google AI Studio
 - Techniques
-- Frameworks
-- Work time
 
-# Presentations
+# Presentation
 
 # News
 
-## s1
-- From `simplescaling`
-- Trained on 1,000 examples
-- Each example is $\langle$ a question $\rangle$ $\langle$ an answer $\rangle$ $\langle$ a reasoning process $\rangle$
-- First tried 59,000 examples
-- [article at Economist](https://www.economist.com/science-and-technology/2025/02/12/forget-deepseek-large-language-models-are-getting-cheaper-still)
+## OpenClaw
+- Avoid at all costs
+- It's a security nightmare
+- Check out the commentary on [OpenClaw is changing my life](https://news.ycombinator.com/item?id=46931805)
+- Or read about how [Moltbook was AI theater](https://news.ycombinator.com/item?id=46932911) from MIT Technology Review
+- By the way [LLMs commit ethics violations](https://news.ycombinator.com/item?id=46954920)
+- And the above comment section compares the three main frontier models
 
-## The Batch
+## The Batch and Data Points
 
-$\langle$ pause to look at this week's edition $\rangle$
+$\langle$ pause to look at last week's edition $\rangle$
 
-# WhatIAlreadyKnow (Ishwari)
+# WhatIKnow (Dhruvi)
+
+$\langle$ pause to discuss contributions $\rangle$
+
+## Writing and formatting the doc
+1. Write about topics that excite you. If it greatly interests you, it's more likely to greatly interest others in the class.
+2. Remember to date your contributions.
+3. Use headings and subheadings in your contribution.
+4. Use links in your contribution. Use Links from the Insert menu.
+5. What else? How can we get the most out of this, both as readers and writers?
 
 # eB review
 
@@ -86,18 +93,55 @@ $\langle$ look at the doc $\rangle$
 
 # m1 questions
 
+## Project levels
+There are two groups of students in the class: novices (you've just met the requirement of one Python course), and advanced (you have significant development experience)
+
+It is vital that the course meets the needs of both groups, which is not easy.
+
+To achieve this, one necessity is to have varying levels of projects. Broadly there are two levels, novice and advanced. Both are eligible for an A grade. You should work comfortably at your limit, not shirking but not trying to be heroic.
+
+You should deploy something you can put in your portfolio and can be anything from a simple chatbot like we created using `chatlas` or an agentic app using, say, Google's ADK. Include extensive use of prompting and make it possible to evaluate and compare prompts.
+
 ## Deliverable
 - A short qmd / html document describing the domain
-- The doc should include specification of whether you plan to run locally or using a cloud service
-- The doc should include a discussion of the possible datasets you might use (the actual dataset will be due in m2)
+- The doc should include specification of model(s)
+- The doc should include a discussion of the possible tools and or datasets you may use (actual tools and or datasets are due in m2)
 - You are not required to stick with the directions you give here, but this should be your current best guess of what you plan to do
-- Examples: chatbot to emulate a foreign leader; chatbot to triage banking problems; chatbot to analyze tweets
+- Examples: chatbot to emulate a foreign leader; chatbot to triage banking problems; chatbot to analyze tweets; note that you can do other genAI tasks that require prompt engineering, such as image generation, as long as a conversation is involved
+- Note that I'm expecting to see two levels of projects: novice (you've just met the requirement of one Python course), or advanced (you have signficant development experience)
 
-## My message
+# Simple chatbot revisited 
+We'll create a chatbot about the famous Titanic dataset 
 
-$\langle$ look at the message $\rangle$
+```bash
+pip install shiny
+shiny create --template querychat --github posit-dev/py-shiny-templates/gen-ai
+```
 
-# Agenta (again)
+## Notes 
+The requirements.txt file contains some spurious code. Delete part about the python-package.
+
+The `app.py` file is missing the `load_env()` code. Add it after line 5.
+
+```python
+from dotenv import load_dotenv
+load_dotenv()
+```
+
+Otherwise, follow the onscreen instructions.
+
+##
+
+![](fiTitanicRegionTree.png)
+
+::: {.notes}
+This picture is from @Wilkinson2005, Chapter 13. Note that it only shows proportions and doesn't tell us, for example, that there were more third-class passengers overall than there were first-class passengers.
+:::
+
+# Google AI Studio Intro
+We'll start by doing the same thing in this environment that we did with `chatlas`, create a chatbot that offers expense policy advice.
+
+<!--- 
 
 # Potato (again)
 
@@ -114,6 +158,8 @@ This will allow you to login. Then you can go to `http://localhost:8000` and log
 ```bash
 python potato/flask_server.py start project-hub/politeness_rating/configs/politeness.yaml -p 8000
 ```
+
+-->
 
 # Techniques
 
@@ -209,9 +255,14 @@ There is no substitute for reading @Schulhoff2024! I'm just listing the main con
 - Chain-of-Verification
 - Cumulative Reasoning
 
-## Haystack
+# Exercise
+Run the two readings, @Sahoo2024 and @Schulhoff2024, through NotebookLM. Ask it to summarize them and then ask about the discrepancy between the F1 scores in Schulhoff's case study. (Manual had high precision and low recall, while automated had the reverse.)
 
-$\langle$ work through the tutorial $\rangle$
+Then consider the diagram on the following screen, showing graphically the definitions of precision and recall (F1 is the harmonic mean of these two statistics). Comment on your view of how NotebookLM has described the difference between the F1 scores.
+
+##
+
+![](fiPrecisionRecallPicture.png){fig-align="center"}
 
 # 
 
@@ -228,5 +279,5 @@ END
 
 This slideshow was produced using `quarto`
 
-Fonts are *Roboto Light*, *Roboto Bold*, and *JetBrains Mono Nerd Font*
+Fonts are *Roboto Light*, *Roboto Bold*, and *Victor Mono Nerd Font*
 

@@ -1,0 +1,98 @@
+---
+title: "Shameless Plug<br>for good course evals"
+subtitle: "Prompt Engineering"
+author:
+  - name: Mick McQuaid
+    email: mcq@utexas.edu
+    affiliations: University of Texas at Austin
+date: last-modified
+date-format: "DD MMM YYYY"
+execute:
+  echo: true
+format: 
+  clean-revealjs:
+    slide-number: false
+    logo: quarto.png
+    footer-logo-link: "https://quarto.org"
+    sc-sb-title: false
+    header-logo: iSchoolLogoLight.png
+    header-logo-link: "https://ischool.utexas.edu"
+    subtitle-as-header: false
+    controls: true
+    controls-layout: edges
+filters:
+  - reveal-header
+  - autofade.lua
+slide-level: 2
+number-sections: false
+engine: knitr
+embed-resources: true
+bibliography: master.bib
+monofont: VictorMono Nerd Font
+mathfont: TeX Gyre Math
+menu:
+  side: 'right'
+css: "style.css"
+---
+
+::: {.r-fit-text}
+Week FOURTEEN
+:::
+
+# Why I need good course evals
+- primary way I'm judged
+- (not even the entire eval! just the "effective teacher" question!)
+- validates my approach
+
+# My approach
+- Exploring a new area
+- Appealing to different skill levels
+- Open Educational Resources approach
+- Exam approach
+
+## Exploring a new area
+- No model exists for this course
+- I've been flexible about what we do
+- It's in your best interest to understand issues around LLMs
+- You only understand those by getting your hands dirty
+
+## Adapting to a new era
+- The world is changing and LLMs are a very big part of that change
+- Many educators believe that your ability to adapt to new situations is what will separate you from the competition
+- I'm emphasizing aspects of that adaptation
+
+## Open Educational Resources approach
+- You didn't have to buy any books for this course
+- The textbook industry is a racket of which I don't want to take part
+- As the textbook industry changes to a subscriber model, it is more important than ever to resist it
+- By the way, the course materials are made with free, open source software
+
+## Final Exam approach
+- The traditional exam is not something you can use in your life
+- I keep refining my approach to make it more relevant to your careers
+- Case in point: no exam---I can't justify an exam in a course like this one, although I have an idea for an exam I may employ in the future, which is to have an LLM write the exam and you analyze what it did wrong
+
+## Exercise / Milestone approach
+- You should be able to use the exercises and milestones to demonstrate what you can do
+- You don't turn in things that can't be used in your life (even the presentations)
+
+# Reasonable grading
+- I believe grading should be competency based, not competitive
+- I can still reward the best students with heartfelt recommendation letters
+
+# Conclusion
+I hope you enjoyed this course and learned a lot! Keep in touch!
+
+# [END]{.r-fit-text}
+
+# References
+
+::: {#refs}
+:::
+
+# Colophon
+
+This slideshow was produced using `quarto`
+
+Fonts are *Roboto*, *Roboto Light*, and *Victor Mono Nerd Font*
+

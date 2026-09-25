@@ -1,0 +1,82 @@
+---
+title: "milestone 1"
+subtitle: "Project Focus"
+date: 09/24/2025
+author:
+  - Group Beta
+  - Jihyung Park
+  - Rui Wei
+  - Yang Yu
+  - Xiaoqi (Sunny) Zhang
+format:
+  html:
+    toc: true
+    embed-resources: false
+    number-sections: true
+mainfont: TeX Gyre Schola
+monofont: JetBrainsMono Nerd Font
+mathfont: TeX Gyre Schola Math
+---
+
+# Name of the project
+
+Carla - personalized car recommendation agent
+
+# Background
+
+## Domain
+
+This project is about providing car-buyers with personal assistance in choosing their ideal car.
+
+## Why this domain?
+
+The car-buying process can be overwhelming, requiring buyers to weigh multiple considerations — from budget, size, and performance to lifestyle needs and long-term goals. Many people struggle with these decisions, and first-time buyers often don’t even know where to begin or what factors to consider. By focusing on this domain, the project aims to bridge that knowledge gap with an intelligent, personalized assistant that simplifies complexity, provides tailored guidance, and helps users confidently choose a car that fits their needs and aspirations.
+
+# Solution
+
+## Target Users
+
+People who want to buy a car.
+
+## Problem(s) to be solved
+
+-   **Lack of Personalized Guidance:** Buyers often struggle to find recommendations tailored to their budget, lifestyle, and preferences.
+-   **Overwhelming Choices:** The wide variety of car models, features, and price points makes the decision-making process confusing.
+-   **Uncertainty About Key Factors:** Many first-time buyers don’t even know what to consider — such as fuel type, maintenance costs, or resale value.
+-   **Difficulty Comparing Options:** Users often lack tools to easily compare multiple cars side-by-side based on relevant criteria.
+-   **Limited Access to Human Expert Help:** Human expert advice is usually not available 24/7, leaving buyers without support when they need it most.
+-   **Decision Paralysis:** With too much information and too little guidance, buyers often feel stuck and unsure about which car is the best fit.
+-   **Mismatch Between Purchase and Lifestyle:** Without proper guidance, buyers risk choosing cars that don’t meet their long-term needs or daily usage patterns.
+-   **Profit-Driven Sales Pressure:** Human salespeople often prioritize commissions and upselling, which can lead to recommendations that do not serve the buyer’s best interests.
+
+## Example prompts
+
+1.  I want a fuel efficient car with 4 doors, my budget is \$15000.
+2.  I'm turning 17 and my parents are buying me a car for under \$5500.
+3.  I want a car that handles well and can holds value, my budget is not stricted.
+4.  I need help choosing a car, but I’m not sure what to look for. I will need to drive to work every day and also pick up my kids. What things should I think about when picking a car for that?
+
+# Model(s)
+
+GPT-5/Gemini 2.5
+
+We will run them in the cloud.
+
+# Potential datasets
+
+## Car Review Dataset
+
+::: {style="margin: 0.5rem 0;"}
+<iframe src="https://huggingface.co/datasets/florentgbelidji/car-reviews/embed/viewer/default/train" frameborder="0" width="100%" height="560px">
+
+</iframe>
+:::
+
+# References
+
+-   Carfax. *Carfax Official Website*. Retrieved from: <https://www.carfax.com>\
+-   CarMax. *CarMax Official Website*. Retrieved from: <https://www.carmax.com>\
+-   CarGurus. *CarGurus Official Website*. Retrieved from: <https://www.cargurus.com>\
+-   CarGurus. *CarGurus Launches AI-Powered Car Shopping Feature to Modernize Automotive Search*. Digital Dealer. Retrieved from: <https://digitaldealer.com/news/cargurus-launches-ai-powered-car-shopping-feature-to-modernize-automotive-search/165799/>\
+-   Databricks. *Common-Sense Product Recommendations Using Large Language Models*. Retrieved from: <https://www.databricks.com/blog/common-sense-product-recommendations-using-large-language-models>\
+-   Jin, Luca, & Martin (PDF). *Complex Disclosure*. Retrieved from: <http://www.martinonline.org/daniel/Jin_Luca_Martin_Complexity_MS.pdf>

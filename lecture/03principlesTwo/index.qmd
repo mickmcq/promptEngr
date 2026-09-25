@@ -42,7 +42,6 @@ Week Three
 :::
 
 # Agenda
-- Finish group assignments
 - Review syllabus
 - Review whatiknow
 - Review eA
@@ -52,20 +51,16 @@ Week Three
 # eA
 
 ## Scoring
-- Average score: 4.7/5 (95%)
-- Grading was very lenient
-- But the honeymoon is over
-- Many people disregarded instructions like the file names---I'll take off points for these omissions in future assignments
+- Average score: 4.21/5
 - I don't regrade assignments---I make suggestions for improvement that you should implement so that the hw is useful to you in the future
 - Why don't I regrade? Think about it!
 - I don't regrade because everyone would eventually get a 5/5
 
 ## Observations
-- One person did a single prompt
-- One person did five prompts
-- Most did two or three prompts
+- Most did one or two prompts
 - Some people did not include an intro or conclusion
-- Most people did not mention the exact model used
+- Most people included last names, is that a privacy problem?
+- Some people included the boilerplate, which should have been removed
 
 ## Exemplary version
 Let's pause to look at an exemplary version of the assignment. Notice the detailed commentary and conclusion.
@@ -96,7 +91,12 @@ Let's pause to look at an exemplary version of the assignment. Notice the detail
 
 # News
 
-## Deepseek R1
+## Biggest news of the week?
+
+## Other news
+Let's look at Data Points and The Batch
+
+## Last year's news in week three: Deepseek R1
 - Deepseek is a Chinese startup founded by Liang Wenfeng
 - They rocked the US stock markets this week by releasing a new LLM called R1
 - R1 is claimed to be competitive with gpt-4o o3 but at a fraction of the cost to develop
@@ -218,7 +218,7 @@ van Schaik focuses on automatic, offline, system-level evaluation of generative 
 # @Shankar2024
 LLMs are the new way to evaluate LLMs!
 
-What could possibly go wrong?
+What could possibly go wrong with that?
 
 Shankar presents an example solution to the obvious problem
 
@@ -416,19 +416,20 @@ This section is mainly of interest to system builders, a small subset of the aud
 
 ## Specification
 - Assemble a bibliography in BibTeX format
-- The subject is PDF remediation
-- PDF remediation is the process of making a PDF accessible to people with disabilities
+- Compare it to a manually-generated bibliography from the ACM digital library
+- The subject is PDF remediation: the process of making a PDF accessible to people with disabilities
 - Most of the literature is about research papers students are required to read
-- I'm familiar with this literature, making it easier for me to detect hallucinations
-- I can also judge the importance of the papers listed
+- I'm familiar with this literature, making it easier for me to detect hallucinations and judge the importance of the papers listed
 - A recent bibliography in this area listed 39 sources, of which only about 20 were relevant
 - Document your process!
 
----
+## Details
+- Turn in a .qmd file and an .html file and a .bib file
+- Respect the file naming convention: eB.qmd, eB.html, eB.bib
+- Use the template file in Canvas > Files > hw
+- Use your imagination!
 
-::: {style="text-align: right; font-size: 300px; font-weight: bold;"}
-END
-:::
+# [END]{.r-fit-text}
 
 # References
 

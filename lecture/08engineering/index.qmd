@@ -1,5 +1,5 @@
 ---
-title: "Prompt Engineering Approaches and System Prompts"
+title: "Inspect, Approaches, System Prompts"
 subtitle: "Prompt Engineering"
 author:
   - name: Mick McQuaid
@@ -7,9 +7,11 @@ author:
     affiliations: University of Texas at Austin
 date: last-modified
 date-format: "DD MMM YYYY"
+execute:
+  echo: true
 format: 
   clean-revealjs:
-    self-contained: true
+    transition: fade
     slide-number: false
     logo: quarto.png
     footer-logo-link: "https://quarto.org"
@@ -19,9 +21,6 @@ format:
     subtitle-as-header: false
     controls: true
     controls-layout: edges
-html-math-method:
-  method: mathml
-  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 filters:
   - reveal-header
   - autofade.lua
@@ -30,29 +29,27 @@ number-sections: false
 engine: knitr
 embed-resources: true
 bibliography: master.bib
-monofont: JetBrainsMono Nerd Font
+monofont: VictorMono Nerd Font
 mathfont: TeX Gyre Math
 menu:
   side: 'right'
 css: "style.css"
 ---
 
-::: {style="position: fixed; font-size: 4em; color: gray;"}
-Week Eight
-:::
+# [Week EIGHT]{.r-fit-text}
 
 # Agenda
-- Presentations: Kylie, Zeel, Maitreyee
+- Presentation: Akhil
 - News
-- Review whatialreadyknow (Ishwari)
+- Review whatiknow (everyone)
+- eD demo
 - m2 questions
-- Prompt engineering techniques
+- Inspect
+- Approaches
 - System prompts
-- Sagemaker
-- Colab
 - Work time
 
-# Presentations
+# Presentation
 
 # News
 
@@ -60,9 +57,63 @@ Week Eight
 
 $\langle$ pause to look at this week's edition $\rangle$
 
-# WhatIAlreadyKnow (Ishwari)
+# WhatIKnow (everyone)
+- remember, science is in the heart as well as the mind
+- you must say things that matter to you
 
-# Prompt Engineering Techniques and Goals
+# Inspect
+
+## Intro
+- An evaluation framework for LLMs
+- Needed because no one LLM dominates on every task
+- Main components are datasets, solvers, scorers, tools, and agents
+- Needs to be installed on your system, e.g., using `uv` or `pip`
+- Uses Python scripts to orchestrate the evaluations
+- The system is extremely flexible but has simple defaults
+
+## Components
+- Tasks are recipes for evaluations and contain at least a dataset, a solver, and a scorer, but optionally other things
+- Datasets are usually just csv tables with an *input* and a *target* column, but can also be json or jsonl files or hugging face datasets or custom datasets
+- Solvers are the heart of evaluations and can be as simple as single model calls or composite or component structures
+- Scorers evaluate whether a task was successfully completed and can use the same model or a different model or an algorithm or other rubrics
+
+## Simple Example
+
+```python
+from inspect_ai import Task, task
+from inspect_ai.dataset import example_dataset
+from inspect_ai.scorer import model_graded_fact
+from inspect_ai.solver import (               
+  chain_of_thought, generate, self_critique   
+)                                             
+
+@task
+def theory_of_mind():
+    return Task(
+        dataset=example_dataset("theory_of_mind"),
+        solver=[
+          chain_of_thought(),
+          generate(),
+          self_critique()
+        ],
+        scorer=model_graded_fact()
+    )
+```
+
+## Preceding Example
+- It was a Python script
+- It imported task, dataset, scorer, solver
+- Assuming we have an api key, we can run it as follows
+
+```bash
+inspect eval theory.py --model openai/gpt-4
+```
+
+## Results
+- The evaluation automatically creates a `logs` subdirectory
+- We can say `inspect view` to access the material in that subdirectory (don't change to the subdirectory)
+
+# Prompt Engineering Approaches
 
 ## Prompt Engineering Techniques
 - Meta Prompting
@@ -127,17 +178,7 @@ Admirably, @Zhang2024 includes a section on ethical considerations. These includ
 - crowdsourced annotations from WEIRD contexts
 - need for research on model performance in new cultural and social contexts
 
-# Sagemaker Studio Lab
-$\langle$ pause to look at the mistral tutorial $\rangle$
-
-# Google Colab
-$\langle$ pause to demo Colab $\rangle$
-
-#
-
-::: {style="text-align: right; font-size: 300px; font-weight: bold;"}
-END
-:::
+# [END]{.r-fit-text}
 
 # References
 
@@ -148,5 +189,5 @@ END
 
 This slideshow was produced using `quarto`
 
-Fonts are *Roboto Light*, *Roboto Bold*, and *JetBrains Mono Nerd Font*
+Fonts are *Roboto*, *Roboto Light*, and *Victor Mono Nerd Font*
 

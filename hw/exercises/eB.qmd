@@ -17,7 +17,7 @@ nocite: |
 
 # Intro
 
-This documents my attempts to generate a BibTeX bibliography on PDF remediation using an LLM.
+This documents my attempts to generate a BibTeX bibliography on PDF remediation using an LLM and compare it to a manually generated bibliography from the ACM Digital Library.
 
 ## Instructions
 
@@ -80,13 +80,13 @@ Here is the prompt that actually gave you the desired result.
 
 ## Result
 
-Here you refer to the `eB.bib` file.
+Here you refer to the `eB.bib` file and to the manually generated bibliography from the ACM Digital Library.
 
-(Just kidding about fifteenth---I don't know how many attempts it will take to get a satisfactory result)
+(Just kidding about fifteenth attempt---I don't know how many attempts it will take to get a satisfactory result)
 
 # Conclusion
 
-Here is where you describe what you did and any thoughts about how it came out.
+Here is where you describe what you did and your thoughts about how it came out.
 
 # Addendum: Features of this file
 
@@ -106,5 +106,5 @@ Note: delete this section before you turn in the file!
 -   Programmatic keywords, preceded and followed by a backtick, in this case, the name `eB.bib` bibliography file ... this causes the keyword to be rendered in a code font
 -   Emphasis, by surrounding an *important* word with asterisks, causing it to be rendered in italics
 
-Of course, you will delete all the instructions and comments in this file before you turn it in! I don't need to read them when I read your solution. The files you turn in (the qmd and the rendered html) will just include your work. These instructions and comments are just to help you get going.
+Of course, you will delete all the instructions and comments in this file before you turn it in! I don't need to read them when I read your solution. The files you turn in (the qmd, bib, and the rendered html) will just include your work. These instructions and comments are just to help you get going.
 

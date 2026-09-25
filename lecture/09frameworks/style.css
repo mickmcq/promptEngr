@@ -28,13 +28,13 @@
     color:#F8971F;
   }
   .reveal .quotation {
-    text-align: left;
+    text-align: center;
     font-style: italic;
-    box-sizing: border-box;
     width: 85%;
   }
   .reveal .attribution {
     text-align: right;
+    width: 85%;
   }
 p.author {
    text-align: center;

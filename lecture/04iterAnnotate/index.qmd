@@ -96,7 +96,7 @@ execute:
 ```{r}
 # install.packages("pacman")
 pacman::p_load(ellmer)
-client <- chat_google_gemini()
+client <- chat_google_gemini(model = "gemini-2.5-flash")
 client$chat("Summarize the plot of Romeo and Juliet in 20 words or fewer.")
 ```
 
@@ -134,6 +134,7 @@ print(response)
 ```{r}
 client =
   chat_google_gemini(
+  model = "gemini-2.5-flash",
   system_prompt =
     ellmer::interpolate_file("posit-expense-policy.md"))
 client$chat("I am a Posit employee. Based on the Posit Expense Policy, can I expense a hotel for business?")

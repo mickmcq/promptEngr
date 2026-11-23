@@ -9,6 +9,7 @@ date: last-modified
 date-format: "DD MMM YYYY"
 format: 
   clean-revealjs:
+    transition: fade
     self-contained: true
     slide-number: false
     logo: quarto.png

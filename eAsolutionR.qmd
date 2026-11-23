@@ -1,0 +1,69 @@
+---
+title: exercise A, using R instead of Python
+author: Mick McQuaid
+date: today
+format:
+  html:
+    theme: pandoc
+    embed-resources: true
+    html-math-method: mathml
+    monofont: JetBrainsMono Nerd Font
+    mainfont: "TeX Gyre Schola"
+    mathfont: TeX Gyre Schola Math
+---
+
+I used the following prompt.
+
+```
+sgpt "In R, generate 32 random numbers from 2 to 13 with replacement
+      but with the constraint that any given number may be repeated
+      no more than three times and no fewer than twice"
+```
+
+The output went up to the line that begins with three hashtags, then I manually added the remainder to make it look better.
+
+```{r}
+ set.seed(123) # For reproducibility
+
+ # Initialize the vector
+ numbers <- c()
+
+ # Ensure each number appears at least twice
+ for (i in 2:13) {
+   numbers <- c(numbers, rep(i, 2))
+ }
+
+ # Calculate remaining slots
+ remaining_slots <- 32 - length(numbers)
+
+ # Randomly select numbers to fill remaining slots,
+ #   ensuring no number appears more than 3 times
+ while (remaining_slots > 0) {
+   num <- sample(2:13, 1)
+   if (sum(numbers == num) < 3) {
+     numbers <- c(numbers, num)
+     remaining_slots <- remaining_slots - 1
+   }
+ }
+
+ # Shuffle the numbers
+ numbers <- sample(numbers)
+
+ # Print the result
+ print(numbers)
+
+#.### my additions follow here
+
+ names <- c("ayesha", "jui-chien", "xinyan", "john", "siddarth",
+            "palak", "dhruvi", "maitreyee", "xiuer", "prathyusha",
+            "amogh", "kylie", "miranda", "emily", "jasmine",
+            "shadrack", "sharon", "sairam", "muhammad", "vibha",
+            "sneha", "anusha", "sainath", "zeel", "srishti",
+            "tianyu", "vanshita", "puneeth", "shuai", "tianyi",
+            "ziqi", "harold")
+pacman::p_load(tidyverse)
+p <- as_tibble(cbind(names,numbers))
+p$numbers <- parse_number(p$numbers)
+p |> arrange(numbers) |> print(n=32)
+```
+

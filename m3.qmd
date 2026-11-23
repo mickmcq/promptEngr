@@ -1,0 +1,98 @@
+---
+title: "milestone 3"
+subtitle: "chatbot"
+date: today
+author:
+  - Group name
+  - member 1
+  - member 2
+  - member 3
+  - $\cdots$
+format:
+  html:
+    toc: true
+    embed-resources: true
+mainfont: TeX Gyre Schola
+monofont: JetBrainsMono Nerd Font
+mathfont: TeX Gyre Schola Math
+---
+
+# Intro
+
+This documents our creation of a chatbot.
+
+$\langle$ Note: The next two sections are the roughly the same as your milestone 2, plus any improvements. $\rangle$
+
+# Data card information
+
+$\langle$ replace this with detailed information about the dataset $\rangle$
+
+$\langle$ Note: if you have a small dataset, submit it along with the qmd file and the html file. If it's large, the URL will probably suffice unless it's somehow walled off. $\rangle$
+
+Make sure you include at least
+
+- URL
+- source (original source not repository)
+- repository (e.g., HuggingFace, Kaggle, etc.)
+- task you intend to use it for (e.g., question answering, summarization, etc.)
+- size
+- structure (e.g., train, test split)
+- other information, depending on the dataset's documentation
+
+# Data dictionary
+
+$\langle$ replace this with a data dictionary, a table listing info about each column $\rangle$
+
+Here's an example of a table:
+
+-------------------------------------------------------------
+ Centered   Default           Right Left
+  Header    Aligned         Aligned Aligned
+----------- ------- --------------- -------------------------
+   First    row                12.0 Example of a row that
+                                    spans multiple lines.
+
+  Second    row                 5.0 Here's another one. Note
+                                    the blank line between
+                                    rows.
+-------------------------------------------------------------
+
+Table: Here's the table caption. It, too, may span
+multiple lines.
+
+*Warning: if you use the Visual editor in RStudio, it will mangle the above table.*
+
+The data dictionary should be laid out like a table. It should include
+
+- column name
+- description
+- type
+- units
+- example
+
+# Steps to create the chatbot
+
+This is where you describe the steps you took to create the chatbot. It is the main body of the document. It will vary from group to group but the file `localRAGchatbot.qmd` is a good model. The main task you will have to do is to figure out how to get your data into the chatbot. In the `localRAGchatbot.qmd` file, we used the `pymupdf` package and loadeda a single pdf file. You will have to figure out how to load your data. Otherwise, you can if you wish, follow the steps in the `localRAGchatbot.qmd` file or a different method using whatever tools you prefer as long as it results in a chatbot.
+
+Note that you will have to render the file so you will probably have to comment out the line that lauches the interface or the rendering process will hang.
+
+# Addendum: Features of this file
+
+Note: delete this section before you turn in the file!
+
+-   Front matter
+    -   Includes your name
+    -   Includes the keyword "today" which resolves to the date on which you render the document
+    -   Includes fonts---you should install these fonts on your computer or change the font specification to fonts you already have on your computer
+    -   Includes the format (html) to which Quarto will render
+    -   Includes some directives that are specific to that format: toc and embed-resources
+    -   `toc` causes the table of contents to be rendered, on the right side of the frame by default
+    -   `embed-resources` causes any diagrams to be included in the html file itself rather than linked---that way you can just submit the html file and I can view it instead of having to submit linked files
+-   Headings: top level headings are preceded by a \# and a space; second level headings are preceded by \## and a space; you can go down several levels by increasing the number of \# symbols
+-   Bulleted lists, formed by preceding the list with a blank line (or a heading) and beginning each line with a dash and a space (both are important)
+-   LaTeX symbols, in this case $\langle$ and $\rangle$, which resolve to angle brackets when you render the document ... you can include any LaTeX math expressions between dollar signs or double dollar signs ... by the way, any dollar signs meant as real dollar signs should be preceded by a backslash, like \$ this, so Quarto doesn't get confused about whether you are starting an equation
+-   Programmatic keywords, preceded and followed by a backtick, in this case, the name `eB.bib` bibliography file ... this causes the keyword to be rendered in a code font
+-   Emphasis, by surrounding an *important* word with asterisks, causing it to be rendered in italics
+
+Of course, you will delete all the instructions and comments in this file before you turn it in! I don't need to read them when I read your solution. The files you turn in (the qmd and the rendered html) will just include your work. These instructions and comments are just to help you get going.
+

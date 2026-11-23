@@ -1,0 +1,132 @@
+---
+title: "exercise A"
+subtitle: "Python randomizer"
+date: today
+author: Mick McQuaid
+format:
+  html:
+    toc: true
+    embed-resources: true
+mainfont: TeX Gyre Schola
+monofont: JetBrainsMono Nerd Font
+mathfont: TeX Gyre Schola Math
+jupyter: python3
+---
+
+# Intro
+
+This documents my attempts to create a Python program using an LLM. The purpose of the program is to choose a random order for students to make presentations about their prompt engineering exploits to the Prompt Engineering class.
+
+The constraints are that
+
+-   everyone in class must present exactly once
+-   no more than two may present on a given day
+-   no fewer than one may present on a given day
+-   there are ten days on which students may present (from week 3 through week 12)
+
+## Possibilities
+
+This program could operate in many different ways.
+
+For example, it could print out ten rows of one or two numbers in each row, with each row representing one date. The numbers must be in the set 1 to $\langle$ *number of students in the class* $\rangle$. In that case, no number must be repeated and every number must be included. Then the numbers can be matched to an alphabetical list of students.
+
+As another example, the program could read in a list of student names and spit them out in a random order, with a line ending after every two. Since there are currently 19 students in the class, if I did this today, there would be two students for each day except the last. But this strategy might be problematic if some students drop the course.
+
+There is a Python `random` module, which can be used in several different ways to randomize.
+
+Many prompt engineering opportunities exist. You could look at <https://news.ycombinator.com/item?id=42584400> and the linked article for ideas about prompt engineering with Python. (A very different perspective is available at <https://news.ycombinator.com/item?id=42617645> )
+
+## Preparation
+
+First, I'm going to check that Python is running.
+
+```{python}
+print("Hello, World!")
+```
+
+If I press the green triangle above and to the right of the Python code chunk, I should see *Hello, World!* printed in a box. (When I render the document, the code will be in a box but the output will be in the body of the document unless I add some other options.)
+
+A more elaborate example of a Python chunk follows.
+
+```{python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+#. This is a comment
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+Please always leave a blank line before and after Python chunks as well as leaving a blank line before (but not necessarily after) headings.
+
+By the way, this is a cross-reference to @fig-polar
+
+# First attempt
+
+## Initial prompt
+
+Here is where you put the first prompt you tried in writing the code.
+
+## Initial result
+
+Here is where you put the result of the first prompt you tried.
+
+# Second attempt
+
+## Prompt
+
+Here is a refined prompt.
+
+## Result
+
+Here is the result of the refined prompt.
+
+# $\cdots$
+
+# Fifteenth attempt
+
+## Prompt
+
+Here is the prompt that actually gave you the desired result.
+
+## Result
+
+Here is the Python fragment that actually achieves the goal of the program.
+
+(Just kidding about fifteenth---I don't know how many attempts it will take to get a satisfactory result---it took me three)
+
+# Conclusion
+
+Here is where you describe what you did and any thoughts about how it came out.
+
+You should also show the application of the Python program and any manual processing it requires, such as combining the list of numbers with a list of students in the class. The result should be a complete solution to the problem, requiring no further processing.
+
+# Addendum: Features of this file
+
+-   Front matter
+    -   Includes your name
+    -   Includes the keyword "today" which resolves to the date on which you render the document
+    -   Includes fonts---you should install these fonts on your computer or change the font specification to fonts you already have on your computer
+    -   Includes the format (html) to which Quarto will render
+    -   Includes some directives that are specific to that format: toc and embed-resources
+    -   `toc` causes the table of contents to be rendered, on the right side of the frame by default
+    -   `embed-resources` causes any diagrams to be included in the html file itself rather than linked---that way you can just submit the html file and I can view it instead of having to submit linked files
+-   Headings: top level headings are preceded by a \# and a space; second level headings are preceded by \## and a space; you can go down several levels by increasing the number of \# symbols
+-   Bulleted lists, formed by preceding the list with a blank line (or a heading) and beginning each line with a dash and a space (both are important)
+-   LaTeX symbols, in this case $\langle$ and $\rangle$, which resolve to angle brackets when you render the document ... you can include any LaTeX math expressions between dollar signs or double dollar signs ... by the way, any dollar signs meant as real dollar signs should be preceded by a backslash, like \$ this, so Quarto doesn't get confused about whether you are starting an equation
+-   Python chunks, preceded by a blank line, then three backticks and the keyword `python` in curly braces, followed by the code, followed by a line with three backticks and a blank line
+-   The first Python code chunk is very simple, but the second one is more elaborate; as you know, \# is the comment symbol in a Python code chunk, but #\| is a special kind of comment, one that gives directives to Quarto; there are two of these, `fig-cap` which causes a caption to be printed, and `fig-label` which creates a label that can be used to reference the figure
+-   Programmatic keywords, preceded and followed by a backtick, in this case, the `random` module of Python ... this causes the keyword to be rendered in a code font
+-   Emphasis, by surrounding an *important* word with asterisks, causing it to be rendered in italics
+
+Of course, you will delete all the instructions and comments in this file before you turn it in! I don't need to read them when I read your solution. The files you turn in (the qmd and the rendered html) will just include your work. These instructions and comments are just to help you get going.
